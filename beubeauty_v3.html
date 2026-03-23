@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be U Beauty – Szépségszalon Budapest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --plum: #2D1B2E;
+  --plum-mid: #4A2B4E;
+  --rose: #D4737A;
+  --rose-light: #F2C4C8;
+  --blush: #F9EEF0;
+  --gold: #C9A96E;
+  --gold-light: #EDD9A3;
+  --cream: #FBF7F4;
+  --green: #4A7C59;
+  --green-light: #E8F5ED;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--plum);cursor:none;overflow-x:hidden;}
+
+/* CURSOR */
+#cur{width:10px;height:10px;background:var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .25s,height .25s;}
+#cur-r{width:36px;height:36px;border:1.5px solid var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:width .25s,height .25s;}
+
+/* URGENCY BAR */
+#urgency-bar{
+  background:var(--plum);
+  padding:10px 40px;
+  display:flex;align-items:center;justify-content:center;gap:32px;
+  flex-wrap:wrap;
+}
+.urg-item{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:400;color:rgba(251,247,244,0.85);letter-spacing:.03em;}
+.urg-dot{width:7px;height:7px;border-radius:50%;background:var(--rose);animation:pulse 2s infinite;flex-shrink:0;}
+.urg-dot.gold{background:var(--gold);}
+.urg-highlight{color:var(--rose-light);font-weight:600;}
+.urg-gold{color:var(--gold-light);font-weight:600;}
+.urg-sep{width:1px;height:16px;background:rgba(251,247,244,0.15);}
+.urg-cta{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,169,110,0.4);padding-bottom:1px;white-space:nowrap;}
+
+/* HAPPY HOUR PILL */
+.happy-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,169,110,0.18);border:1px solid rgba(201,169,110,0.45);
+  border-radius:40px;padding:5px 14px;
+  font-size:12px;color:var(--gold);font-weight:500;letter-spacing:.04em;
+  animation:glimmer 3s ease-in-out infinite;
+}
+@keyframes glimmer{0%,100%{opacity:.85}50%{opacity:1}}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 60px;
+  background:rgba(251,247,244,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(212,115,122,0.1);
+  transition:padding .3s;
+}
+nav.scrolled{padding:14px 60px;}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--plum);text-decoration:none;letter-spacing:.04em;}
+.logo b{color:var(--rose);font-weight:400;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--plum-mid);text-decoration:none;position:relative;transition:color .2s;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--rose);transform:scaleX(0);transform-origin:right;transition:transform .3s;}
+.nav-links a:hover{color:var(--rose);}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left;}
+.nav-cta{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:12px 28px;background:var(--plum);color:var(--cream);text-decoration:none;position:relative;overflow:hidden;transition:color .3s;}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.nav-cta:hover::before{transform:scaleX(1);}
+.nav-cta span{position:relative;z-index:1;}
+
+/* PETALS */
+.petal{position:fixed;border-radius:50% 0 50% 0;opacity:0;pointer-events:none;z-index:1;animation:fall linear infinite;}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:.6;}100%{transform:translateY(100vh) rotate(360deg);opacity:0;}}
+
+/* =================== HERO =================== */
+.hero{min-height:100vh;display:grid;grid-template-columns:55% 45%;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;font-family:'Playfair Display',serif;font-size:30vw;font-weight:700;font-style:italic;color:rgba(212,115,122,0.035);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;user-select:none;letter-spacing:-.04em;}
+
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 60px 80px 80px;position:relative;z-index:2;}
+
+.greeting{display:inline-flex;align-items:center;gap:10px;background:var(--blush);border:1px solid var(--rose-light);border-radius:40px;padding:9px 20px;margin-bottom:40px;width:fit-content;animation:fadeUp .6s .1s both;}
+.greeting-dot{width:8px;height:8px;border-radius:50%;background:var(--rose);animation:pulse 2s infinite;}
+.greeting-text{font-size:14px;color:var(--rose);letter-spacing:.03em;}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.5;}}
+
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,6vw,80px);font-weight:400;line-height:1.05;color:var(--plum);margin-bottom:8px;animation:fadeUp .6s .3s both;}
+.hero-title em{font-style:italic;color:var(--rose);}
+
+.hero-tw-line{font-family:'Playfair Display',serif;font-size:clamp(52px,6vw,80px);font-weight:700;font-style:italic;color:var(--plum);margin-bottom:40px;min-height:1.15em;animation:fadeUp .6s .4s both;}
+.tw{color:var(--rose);}
+.tw-cur{display:inline-block;width:4px;height:.85em;background:var(--rose);margin-left:3px;animation:blink .9s infinite;vertical-align:middle;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.hero-desc{font-size:18px;font-weight:300;line-height:1.85;color:var(--plum-mid);max-width:460px;margin-bottom:48px;animation:fadeUp .6s .5s both;}
+
+.hero-pills{display:flex;align-items:center;gap:12px;margin-bottom:44px;flex-wrap:wrap;animation:fadeUp .6s .6s both;}
+.pill-price{background:var(--gold-light);color:#6B4A00;font-size:14px;font-weight:500;padding:8px 18px;border-radius:40px;}
+.pill-avail{background:var(--green-light);color:var(--green);font-size:13px;font-weight:400;padding:8px 16px;border-radius:40px;display:flex;align-items:center;gap:7px;}
+.pill-avail-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+
+.hero-btns{display:flex;align-items:center;gap:22px;animation:fadeUp .6s .7s both;}
+.btn-main{display:inline-flex;align-items:center;gap:10px;padding:18px 40px;background:var(--plum);color:var(--cream);font-family:'Jost',sans-serif;font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;position:relative;overflow:hidden;transition:color .3s;}
+.btn-main::before{content:'';position:absolute;inset:0;background:var(--rose);transform:translateX(-101%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+.btn-main:hover::before{transform:translateX(0);}
+.btn-main > *{position:relative;z-index:1;}
+.btn-ghost{font-size:14px;font-weight:400;color:var(--plum-mid);text-decoration:none;border-bottom:1px solid rgba(74,43,78,.25);padding-bottom:3px;transition:color .2s,border-color .2s;}
+.btn-ghost:hover{color:var(--rose);border-color:var(--rose);}
+
+.hero-stats{display:flex;gap:44px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(212,115,122,.15);animation:fadeUp .6s .8s both;}
+.stat-n{font-family:'Playfair Display',serif;font-size:42px;font-weight:400;font-style:italic;color:var(--plum);line-height:1;}
+.stat-n b{color:var(--rose);font-weight:400;}
+.stat-l{font-size:13px;font-weight:300;color:var(--plum-mid);margin-top:5px;letter-spacing:.03em;}
+
+/* HERO RIGHT */
+.hero-right{background:var(--plum);position:relative;overflow:hidden;display:flex;align-items:center;}
+.hero-right-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(212,115,122,.22) 0%,transparent 65%),radial-gradient(ellipse at 80% 20%,rgba(201,169,110,.12) 0%,transparent 55%);}
+.hero-big{position:absolute;bottom:-30px;right:-20px;font-family:'Playfair Display',serif;font-size:220px;font-weight:700;font-style:italic;color:rgba(255,255,255,.025);line-height:1;user-select:none;pointer-events:none;}
+
+.fcards{padding:48px 40px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:2;width:100%;}
+.fcard{background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);padding:22px 26px;transition:all .35s cubic-bezier(.4,0,.2,1);}
+.fcard:hover{background:rgba(255,255,255,.12);transform:translateX(-8px);}
+.fcard-badge{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.fcard-badge .new-tag{background:rgba(201,169,110,.2);color:var(--gold-light);font-size:9px;padding:2px 8px;border-radius:20px;}
+.fcard-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:400;font-style:italic;color:var(--cream);margin-bottom:5px;line-height:1.2;}
+.fcard-sub{font-size:13px;font-weight:300;color:rgba(251,247,244,.5);line-height:1.55;}
+.fcard-price{font-size:12px;color:var(--gold);margin-top:10px;font-weight:400;}
+.fcard-akció{display:inline-flex;align-items:center;gap:6px;background:rgba(212,115,122,.25);color:var(--rose-light);font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 10px;border-radius:20px;margin-top:8px;}
+
+/* =================== QUIZ =================== */
+.quiz{padding:120px 80px;background:var(--plum);position:relative;overflow:hidden;}
+.quiz-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 10% 50%,rgba(212,115,122,.1) 0%,transparent 60%),radial-gradient(ellipse at 90% 50%,rgba(201,169,110,.07) 0%,transparent 60%);pointer-events:none;}
+.quiz-inner{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.eyebrow-gold{font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:14px;}
+.eyebrow-gold::before,.eyebrow-gold::after{content:'';flex:1;max-width:60px;height:1px;background:var(--gold);opacity:.35;}
+.quiz-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4.5vw,58px);font-weight:400;font-style:italic;line-height:1.1;color:var(--cream);margin-bottom:16px;}
+.quiz-sub{font-size:16px;font-weight:300;color:rgba(251,247,244,.5);margin-bottom:56px;line-height:1.75;}
+.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:32px;}
+.qopt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:30px 26px;text-align:left;cursor:none;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;}
+.qopt::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,115,122,.18) 0%,rgba(201,169,110,.08) 100%);opacity:0;transition:opacity .3s;}
+.qopt:hover{border-color:rgba(212,115,122,.45);transform:translateY(-4px);}
+.qopt:hover::before{opacity:1;}
+.qopt.sel{border-color:var(--rose);background:rgba(212,115,122,.14);}
+.qopt.sel::before{opacity:1;}
+.q-emoji{font-size:28px;margin-bottom:14px;display:block;}
+.q-title{font-size:17px;font-weight:500;color:var(--cream);margin-bottom:7px;position:relative;z-index:1;}
+.q-sub{font-size:13px;font-weight:300;color:rgba(251,247,244,.48);line-height:1.6;position:relative;z-index:1;}
+.qresult{display:none;background:rgba(212,115,122,.1);border:1px solid rgba(212,115,122,.3);padding:36px 44px;text-align:left;animation:fadeUp .5s both;}
+.qresult.show{display:block;}
+.rl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.rt{font-family:'Playfair Display',serif;font-size:26px;font-style:italic;color:var(--cream);margin-bottom:16px;line-height:1.35;}
+.rs{font-size:15px;font-weight:300;color:rgba(251,247,244,.58);line-height:1.8;margin-bottom:28px;}
+.res-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--rose);color:var(--cream);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:background .2s;}
+.res-btn:hover{background:#C05A62;}
+.mira-note{margin-top:16px;font-size:13px;font-weight:300;color:rgba(251,247,244,.4);line-height:1.6;}
+.mira-note a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,169,110,.35);}
+
+/* =================== TREATMENTS =================== */
+.treatments{padding:120px 80px;background:var(--cream);}
+.eyebrow-rose{font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.eyebrow-rose::before{content:'';width:32px;height:1px;background:var(--rose);display:block;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(40px,4.5vw,62px);font-weight:400;line-height:1.08;color:var(--plum);margin-bottom:72px;}
+.sec-title em{font-style:italic;color:var(--rose);}
+
+/* TREATMENT CARDS — each one unique */
+.t-block{margin-bottom:4px;}
+
+/* LÉZER CARD */
+.t-laser{display:grid;grid-template-columns:1fr 1fr;background:var(--plum);overflow:hidden;}
+.t-laser-left{padding:64px 56px;display:flex;flex-direction:column;justify-content:space-between;}
+.t-laser-right{background:rgba(255,255,255,.04);padding:64px 48px;border-left:1px solid rgba(255,255,255,.07);}
+.t-tag{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.t-name{font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,48px);font-weight:400;font-style:italic;color:var(--cream);line-height:1.1;margin-bottom:16px;}
+.t-desc{font-size:16px;font-weight:300;color:rgba(251,247,244,.58);line-height:1.85;margin-bottom:32px;}
+.t-price{font-size:14px;color:var(--gold);margin-bottom:24px;font-weight:400;}
+.t-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:3px;transition:border-color .2s;}
+.t-link:hover{border-color:var(--rose);}
+
+.tabu-box{background:rgba(212,115,122,.1);border:1px solid rgba(212,115,122,.25);padding:28px 30px;}
+.tabu-title{font-size:14px;font-weight:500;color:var(--rose-light);margin-bottom:12px;letter-spacing:.02em;}
+.tabu-text{font-size:14px;font-weight:300;color:rgba(251,247,244,.58);line-height:1.8;margin-bottom:20px;}
+.tabu-mira{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);padding:14px 18px;margin-top:4px;}
+.tabu-mira-text{font-size:13px;color:rgba(251,247,244,.65);line-height:1.5;}
+.tabu-mira-text a{color:var(--gold);text-decoration:none;}
+.tabu-areas{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.area-tag{background:rgba(255,255,255,.07);color:rgba(251,247,244,.65);font-size:12px;padding:5px 12px;border-radius:40px;}
+.area-tag.intimate{background:rgba(212,115,122,.2);color:var(--rose-light);}
+
+.t-laser-stats{display:flex;gap:32px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,.08);}
+.tstat-n{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;font-style:italic;color:var(--rose-light);line-height:1;}
+.tstat-l{font-size:12px;font-weight:300;color:rgba(251,247,244,.45);margin-top:4px;}
+
+/* AKCIÓ BADGE */
+.akcio-badge{display:inline-flex;align-items:center;gap:8px;background:var(--rose);color:var(--cream);font-size:12px;font-weight:600;letter-spacing:.06em;padding:7px 16px;margin-bottom:24px;}
+
+/* ALAKFORMÁLÁS */
+.t-alak{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#E8E0EA;}
+.t-alak-card{background:var(--cream);padding:52px 36px;position:relative;overflow:hidden;transition:background .35s;}
+.t-alak-card:hover{background:var(--plum-mid);}
+.t-alak-card:hover .tac-title{color:var(--cream);}
+.t-alak-card:hover .tac-desc{color:rgba(251,247,244,.55);}
+.t-alak-card:hover .tac-num{color:rgba(255,255,255,.03);}
+.tac-num{position:absolute;top:16px;right:24px;font-family:'Playfair Display',serif;font-size:80px;font-weight:700;font-style:italic;color:rgba(45,27,46,.05);line-height:1;user-select:none;transition:color .35s;}
+.tac-icon{font-size:26px;margin-bottom:28px;display:block;}
+.tac-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--plum);margin-bottom:12px;line-height:1.2;transition:color .35s;}
+.tac-desc{font-size:14px;font-weight:300;color:#5D4A5F;line-height:1.8;transition:color .35s;}
+.tac-tag{display:inline-block;background:var(--rose-light);color:#8B2A35;font-size:10px;font-weight:600;letter-spacing:.1em;padding:4px 12px;border-radius:20px;margin-top:14px;}
+
+/* SIGNATURE ARCKEZELÉS */
+.t-arc{background:var(--blush);padding:72px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.t-arc-visual{position:relative;height:480px;}
+.arc-box1{position:absolute;top:0;left:0;right:50px;bottom:50px;background:var(--plum);display:flex;align-items:center;justify-content:center;}
+.arc-box2{position:absolute;bottom:0;right:0;width:180px;height:180px;background:var(--rose-light);display:flex;align-items:center;justify-content:center;text-align:center;}
+.arc-box2-n{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;font-style:italic;color:var(--plum);line-height:1;}
+.arc-box2-l{font-size:11px;color:var(--plum-mid);margin-top:5px;font-weight:400;}
+.arc-big{font-family:'Playfair Display',serif;font-size:96px;font-weight:700;font-style:italic;color:rgba(251,247,244,.06);line-height:1;text-align:center;user-select:none;}
+.sig-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gold-light);color:#6B4A00;font-size:12px;font-weight:600;letter-spacing:.1em;padding:7px 18px;border-radius:0;margin-bottom:20px;}
+.treatments-list{list-style:none;display:flex;flex-direction:column;gap:0;margin-top:28px;}
+.tl-item{display:flex;align-items:flex-start;gap:16px;padding:20px 0;border-bottom:1px solid rgba(212,115,122,.15);}
+.tl-item:last-child{border-bottom:none;}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--rose);flex-shrink:0;margin-top:7px;}
+.tl-name{font-size:15px;font-weight:500;color:var(--plum);margin-bottom:4px;}
+.tl-desc{font-size:13px;font-weight:300;color:var(--plum-mid);line-height:1.65;}
+.tl-tag{display:inline-block;background:var(--rose-light);color:#8B2A35;font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 10px;border-radius:20px;margin-top:6px;}
+
+/* =================== REVIEWS =================== */
+.reviews{padding:120px 80px;background:#F3ECF0;position:relative;overflow:hidden;}
+.reviews::before{content:'❝';position:absolute;top:-60px;left:40px;font-family:'Playfair Display',serif;font-size:360px;color:rgba(212,115,122,.05);line-height:1;pointer-events:none;}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:64px;}
+.rcard{background:white;padding:40px;position:relative;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.rcard:hover{transform:translateY(-6px);}
+.rcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rose);}
+.rcard-stars{color:var(--gold);font-size:15px;letter-spacing:2px;margin-bottom:20px;}
+.rcard-text{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--plum);line-height:1.6;margin-bottom:24px;}
+.rcard-name{font-size:14px;font-weight:500;color:var(--plum-mid);}
+.rcard-service{font-size:12px;color:var(--rose);margin-top:4px;}
+
+/* =================== CTA =================== */
+.cta{padding:140px 80px;text-align:center;position:relative;overflow:hidden;}
+.cta-ring{position:absolute;border-radius:50%;border:1px solid rgba(212,115,122,.1);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;animation:rp 4s ease-in-out infinite;}
+@keyframes rp{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.03)}}
+.cta-inner{position:relative;z-index:1;}
+.cta-tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:28px;}
+.cta-tag::before,.cta-tag::after{content:'';flex:1;max-width:60px;height:1px;background:var(--rose);opacity:.4;}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(44px,5.5vw,74px);font-weight:400;font-style:italic;color:var(--plum);line-height:1.08;margin-bottom:20px;}
+.cta-title em{color:var(--rose);}
+.cta-sub{font-size:17px;font-weight:300;color:var(--plum-mid);max-width:500px;margin:0 auto 52px;line-height:1.85;}
+.cta-meta{font-size:14px;color:var(--plum-mid);margin-top:28px;letter-spacing:.03em;}
+.cta-meta a{color:var(--rose);text-decoration:none;}
+
+/* FOOTER */
+footer{background:var(--plum);padding:64px 80px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:48px;}
+.f-logo{font-family:'Playfair Display',serif;font-size:24px;font-style:italic;color:var(--cream);margin-bottom:14px;}
+.f-logo b{color:var(--rose);font-weight:400;}
+.f-tag{font-size:14px;font-weight:300;color:rgba(251,247,244,.38);line-height:1.75;}
+.f-title{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.f-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.f-list a{font-size:14px;font-weight:300;color:rgba(251,247,244,.5);text-decoration:none;transition:color .2s;}
+.f-list a:hover{color:var(--rose-light);}
+.f-contact a{display:block;font-size:14px;font-weight:300;color:rgba(251,247,244,.5);text-decoration:none;margin-bottom:10px;transition:color .2s;}
+.f-contact a:hover{color:var(--rose-light);}
+.f-bottom{background:rgba(0,0,0,.2);padding:18px 80px;display:flex;justify-content:space-between;}
+.f-bottom span{font-size:12px;color:rgba(251,247,244,.28);}
+
+/* UTILS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* MOBILE */
+@media(max-width:960px){
+  nav{padding:16px 24px;}
+  .nav-links{display:none;}
+  #urgency-bar{padding:10px 16px;gap:12px;flex-direction:column;}
+  .urg-sep{display:none;}
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-left{padding:40px 24px;}
+  .hero-right{min-height:320px;}
+  .fcards{padding:24px;}
+  .quiz,.treatments,.reviews,.cta{padding:72px 24px;}
+  .quiz-grid{grid-template-columns:1fr;}
+  .t-laser,.t-arc{grid-template-columns:1fr;}
+  .t-alak{grid-template-columns:1fr;gap:2px;}
+  .t-arc-visual{height:260px;}
+  .t-arc{padding:48px 24px;gap:40px;}
+  footer{grid-template-columns:1fr;padding:48px 24px;}
+  .f-bottom{padding:16px 24px;flex-direction:column;gap:6px;}
+  .hero-stats{gap:24px;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- PETALS -->
+<div class="petal" style="left:8%;width:5px;height:8px;background:#F2C4C8;animation-duration:9s;animation-delay:0s"></div>
+<div class="petal" style="left:22%;width:4px;height:7px;background:#EDD9A3;animation-duration:12s;animation-delay:2s"></div>
+<div class="petal" style="left:50%;width:6px;height:9px;background:#F2C4C8;animation-duration:10s;animation-delay:4s"></div>
+<div class="petal" style="left:72%;width:5px;height:7px;background:#EDD9A3;animation-duration:8s;animation-delay:1s"></div>
+<div class="petal" style="left:88%;width:4px;height:8px;background:#F2C4C8;animation-duration:11s;animation-delay:3s"></div>
+
+<!-- URGENCY BAR -->
+<div id="urgency-bar">
+  <div class="urg-item">
+    <div class="urg-dot"></div>
+    <span>Ma még <span class="urg-highlight" id="urg-slots">2 szabad hely</span> arckezelésre</span>
+  </div>
+  <div class="urg-sep"></div>
+  <div class="urg-item">
+    <div class="urg-dot gold"></div>
+    <span class="happy-pill">✦ Happy Hour most aktív · <span class="urg-gold">−15% lézeres szőrtelenítésre 14:00-ig</span></span>
+  </div>
+  <div class="urg-sep"></div>
+  <a href="https://beubeauty.salonic.hu" class="urg-cta">Foglalj most →</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">Be <b>U</b> Beauty</a>
+  <ul class="nav-links">
+    <li><a href="#treatments">Kezelések</a></li>
+    <li><a href="#quiz">Kvíz</a></li>
+    <li><a href="#reviews">Vélemények</a></li>
+    <li><a href="#contact">Kapcsolat</a></li>
+  </ul>
+  <a href="https://beubeauty.salonic.hu" class="nav-cta"><span>Időpontfoglalás</span></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">BEU</div>
+  <div class="hero-left">
+    <div class="greeting">
+      <div class="greeting-dot"></div>
+      <span class="greeting-text" id="greet">Jó napot!</span>
+    </div>
+
+    <h1 class="hero-title">Érezd magad</h1>
+    <div class="hero-tw-line">
+      <span class="tw" id="tw"></span><span class="tw-cur"></span>
+    </div>
+
+    <p class="hero-desc">Fájdalommentes lézeres szőrtelenítés, modern alakformálás és Signature arckezelések — a belváros szívében, ahol minden vendég egyedi és minden kezelés személyre szabott.</p>
+
+    <div class="hero-pills">
+      <div class="pill-price">Ártól 4 900 Ft / kezelés</div>
+      <div class="pill-avail"><span class="pill-avail-dot"></span>Szabad időpont: ma is</div>
+    </div>
+
+    <div class="hero-btns">
+      <a href="https://beubeauty.salonic.hu" class="btn-main">
+        <span>Időpontot foglalok</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#quiz" class="btn-ghost">Melyik kezelés való nekem? →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div><div class="stat-n">500<b>+</b></div><div class="stat-l">elégedett vendég</div></div>
+      <div><div class="stat-n">3<b> év</b></div><div class="stat-l">tapasztalat</div></div>
+      <div><div class="stat-n">⭐ 5<b>.0</b></div><div class="stat-l">Google értékelés</div></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-glow"></div>
+    <div class="hero-big">BU</div>
+    <div class="fcards">
+      <div class="fcard">
+        <div class="fcard-badge">Legnépszerűbb <span class="new-tag">2+1 AKCIÓ</span></div>
+        <div class="fcard-title">Lézeres szőrtelenítés</div>
+        <div class="fcard-sub">Tartós, fájdalommentes — diódlézerrel. Intim területek is, tabu nélkül.</div>
+        <div class="fcard-price">Ártól 4 900 Ft · 2+1 csomag elérhető</div>
+        <div class="fcard-akció">★ Happy Hour · −15% 14:00-ig</div>
+      </div>
+      <div class="fcard">
+        <div class="fcard-badge">Modern</div>
+        <div class="fcard-title">Alakformálás</div>
+        <div class="fcard-sub">HIEMT, lipolézer, rádiófrekvencia — centik pár hét alatt</div>
+        <div class="fcard-price">Ártól 8 900 Ft / kezelés</div>
+      </div>
+      <div class="fcard" style="border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.07)">
+        <div class="fcard-badge" style="color:var(--gold-light)">Signature kezelésünk</div>
+        <div class="fcard-title">HydraGlow · Signature 5D</div>
+        <div class="fcard-sub">Nyomásmentes mélytisztítás + rádiófrekvencia + ragyogás — egyszerre</div>
+        <div class="fcard-price">Ártól 9 900 Ft · <span style="color:var(--gold-light)">Ma még 2 hely!</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz" id="quiz">
+  <div class="quiz-glow"></div>
+  <div class="quiz-inner">
+    <div class="eyebrow-gold reveal">Személyre szabva</div>
+    <h2 class="quiz-title reveal d1">Mi a te célod most,<br><em>őszintén?</em></h2>
+    <p class="quiz-sub reveal d2">Kattints arra, ami legjobban illik rád — megmutatom melyik kezelés a te utad. Ha valami érzékeny témáról van szó, Mira diszkréten segít.</p>
+
+    <div class="quiz-grid reveal d3" id="quiz-opts">
+      <div class="qopt" onclick="setQ(this,0)">
+        <span class="q-emoji">✨</span>
+        <div class="q-title">Legyen végre sima a bőröm</div>
+        <div class="q-sub">Elege van a napi borotválkozásból, gyantából. Tartós megoldást keres — bárhol a testen.</div>
+      </div>
+      <div class="qopt" onclick="setQ(this,1)">
+        <span class="q-emoji">💫</span>
+        <div class="q-title">Szeretnék pár centit leadni</div>
+        <div class="q-sub">Vannak makacs területek, amiken az edzés sem segít igazán. Gépi kezelést keres.</div>
+      </div>
+      <div class="qopt" onclick="setQ(this,2)">
+        <span class="q-emoji">🌸</span>
+        <div class="q-title">Ragyogó, feszes bőrt szeretnék</div>
+        <div class="q-sub">Nyomásmentesen, mélytisztítással, ragyogással. A bőrét szeretné megfiatalítani.</div>
+      </div>
+      <div class="qopt" onclick="setQ(this,3)">
+        <span class="q-emoji">🦋</span>
+        <div class="q-title">Van egy kérdésem, de nem merem megkérdezni</div>
+        <div class="q-sub">PCOS, intim területek, genetika — nálunk nincs tabu. Mira diszkréten segít.</div>
+      </div>
+    </div>
+
+    <div class="qresult" id="qr">
+      <div class="rl" id="qr-l"></div>
+      <div class="rt" id="qr-t"></div>
+      <div class="rs" id="qr-s"></div>
+      <a href="https://beubeauty.salonic.hu" class="res-btn">Foglalj időpontot →</a>
+      <div class="mira-note" id="qr-m"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="treatments" id="treatments">
+  <div class="eyebrow-rose reveal">Kezelések</div>
+  <h2 class="sec-title reveal d1">Amit nálunk<br><em>megkaphatsz</em></h2>
+
+  <!-- LÉZER -->
+  <div class="t-block reveal">
+    <div class="t-laser">
+      <div class="t-laser-left">
+        <div>
+          <div class="t-tag">Diódalézer · Tartós megoldás</div>
+          <div class="akcio-badge">★ 2+1 CSOMAG — harmadik kezelés ingyen</div>
+          <div class="t-name">Lézeres<br>szőrtelenítés</div>
+          <p class="t-desc">Orvosi minőségű diódalézerrel, fájdalommentesen. Már az első 1–3 alkalom után látványos a csökkenés. 6–10 kezelés, és tartósan sima a bőröd — borotva, gyanta, krém nélkül örökre.</p>
+          <div class="t-price">Ártól 4 900 Ft / kezelés · 2+1 csomag ajánlattal</div>
+          <a href="https://www.beubeauty.hu/lezeres-szortelenites" class="t-link">Részletek és árak →</a>
+        </div>
+        <div class="t-laser-stats">
+          <div><div class="tstat-n">6–10</div><div class="tstat-l">alkalom a tartós eredményhez</div></div>
+          <div><div class="tstat-n">90%+</div><div class="tstat-l">szőrcsökkentés</div></div>
+          <div><div class="tstat-n">~0</div><div class="tstat-l">fájdalom</div></div>
+        </div>
+      </div>
+
+      <div class="t-laser-right">
+        <div class="tabu-box">
+          <div class="tabu-title">💬 Mert nincs szégyellni való — segítünk tabu nélkül</div>
+          <p class="tabu-text">PCOS, hormonális szőrzet, genetika — ezek nem a te hibád, és nem kell velük együtt élni. Intim területek, arc, has, hát: nálunk mindenről lehet és kell is beszélni. A konzultáció diszkrét és ítéletmentes.</p>
+          <div class="tabu-areas">
+            <span class="area-tag">Arc & ajak</span>
+            <span class="area-tag">Hónalj</span>
+            <span class="area-tag">Lábak</span>
+            <span class="area-tag">Hát & has</span>
+            <span class="area-tag intimate">Bikini · Intim</span>
+            <span class="area-tag intimate">PCOS kezelés</span>
+          </div>
+          <div class="tabu-mira" style="margin-top:20px">
+            <span style="font-size:22px">🤫</span>
+            <div class="tabu-mira-text">Ha nem mersz kérdezni személyesen, <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank">kérdezd Mirát</a> — a digitális asszisztensünk diszkrétan és ítéletmentesen segít megtalálni a legjobb megoldást.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALAKFORMÁLÁS -->
+  <div class="t-block reveal" style="margin-top:4px">
+    <div class="t-alak">
+      <div class="t-alak-card">
+        <span class="tac-num">01</span>
+        <span class="tac-icon">⚡</span>
+        <div class="tac-title">HIEMT alakformálás</div>
+        <div class="tac-desc">Elektromágneses impulzusok, amik mélyebben dolgoznak, mint 20 000 guggolás. Izomépítés és zsírégetés egyszerre, 30 perc alatt.</div>
+        <div class="tac-tag">Aktív izomstimulálás</div>
+      </div>
+      <div class="t-alak-card">
+        <span class="tac-num">02</span>
+        <span class="tac-icon">💧</span>
+        <div class="tac-title">Lipolézer · Zsírbontás</div>
+        <div class="tac-desc">Lézer energiával célzottan bontja a zsírsejteket — has, combok, karok makacs területein. Fájdalommentes, látványos eredmény.</div>
+        <div class="tac-tag">Célzott zsírbontás</div>
+      </div>
+      <div class="t-alak-card">
+        <span class="tac-num">03</span>
+        <span class="tac-icon">✦</span>
+        <div class="tac-title">NarancsbőrSTOP · RF kezelés</div>
+        <div class="tac-desc">Rádiófrekvenciás bőrfeszesítés + vákumos kezelés. Narancsbőr, laza bőr ellen — centikkel mérhetően.</div>
+        <div class="tac-tag">Bőrfeszesítés</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURE ARCKEZELÉS -->
+  <div class="t-block reveal" style="margin-top:4px">
+    <div class="t-arc">
+      <div class="t-arc-visual">
+        <div class="arc-box1"><div class="arc-big">5D<br>Sig.</div></div>
+        <div class="arc-box2">
+          <div>
+            <div class="arc-box2-n">Ma 2</div>
+            <div class="arc-box2-l">szabad hely</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="t-tag" style="color:var(--rose)">Signature · Arckezelések</div>
+        <div class="sig-badge">✦ Csak nálunk elérhető</div>
+        <div class="t-name" style="color:var(--plum);font-size:clamp(28px,3vw,44px)">Signature<br>Arckezelések</div>
+        <p class="t-desc" style="color:var(--plum-mid);margin-bottom:8px">Nem átlagos arckezelések — hanem a mi saját, kidolgozott módszertanunk. Minden kezelésünknek neve, karaktere és kézjegye van.</p>
+        <ul class="treatments-list">
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-name">HydraGlow</div>
+              <div class="tl-desc">Nyomásmentes mélytisztítás — tűk, nyomkodás, vörösség nélkül. A pórusok kitisztulnak, a bőr azonnal ragyog.</div>
+              <span class="tl-tag">Nyomásmentes · Azonnal látható</span>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-name">Signature 5D arckezelés</div>
+              <div class="tl-desc">Mélytisztítás + rádiófrekvencia + hidratálás + feszesítés + ragyogás — öt hatás egyetlen kezelésben. Ez a mi kézjegyünk.</div>
+              <span class="tl-tag">Signature · Komplexkezelés</span>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-name">Rádiófrekvenciás feszesítés</div>
+              <div class="tl-desc">Kollagéntermelés serkentése mélyhővel — a bőr feszesebbé, fiatalabbá válik. Tű és beavatkozás nélkül.</div>
+              <span class="tl-tag">Anti-aging · Feszesítés</span>
+            </div>
+          </li>
+        </ul>
+        <a href="https://www.beubeauty.hu/kozmetika" class="t-link" style="color:var(--plum);border-color:rgba(45,27,46,.25);margin-top:28px;display:inline-flex;">Arckezelések részletesen →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="eyebrow-rose reveal">Vélemények</div>
+  <h2 class="sec-title reveal d1">Amit a vendégeink<br><em>mondanak rólunk</em></h2>
+  <div class="rev-grid">
+    <div class="rcard reveal">
+      <div class="rcard-stars">★★★★★</div>
+      <div class="rcard-text">„Már 3 alkalma járok lézeres szőrtelenítésre — az eredmény egyszerűen fantasztikus. Teljesen fájdalommentes, és végre szabad vagyok a borotvától."</div>
+      <div class="rcard-name">Eszter M.</div>
+      <div class="rcard-service">Lézeres szőrtelenítés, 2+1 csomag</div>
+    </div>
+    <div class="rcard reveal d1">
+      <div class="rcard-stars">★★★★★</div>
+      <div class="rcard-text">„A HydraGlow kezelés után a bőröm teljesen megújult — semmi vörösség, semmi nyomkodás, csak ragyogás. Ezt most minden hónapban megcsináltatom."</div>
+      <div class="rcard-name">Petra K.</div>
+      <div class="rcard-service">HydraGlow Signature arckezelés</div>
+    </div>
+    <div class="rcard reveal d2">
+      <div class="rcard-stars">★★★★★</div>
+      <div class="rcard-text">„Régóta küzdök PCOS-sal és szégyelltem elmondani. Náluk a konzultáció ítéletmentes volt, és végre valaki segített. Az eredmény is csodás."</div>
+      <div class="rcard-name">Zsófi H.</div>
+      <div class="rcard-service">Lézeres szőrtelenítés · Intim + arc</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="cta-ring" style="width:500px;height:500px"></div>
+  <div class="cta-ring" style="width:800px;height:800px;animation-delay:2s"></div>
+  <div class="cta-inner">
+    <div class="cta-tag reveal">Online foglalás</div>
+    <h2 class="cta-title reveal d1">Készen állsz az<br><em>első lépésre?</em></h2>
+    <p class="cta-sub reveal d2">Foglalj időpontot online — pár kattintás, és már csak arra kell gondolnod, hogyan érzed majd magad.</p>
+    <a href="https://beubeauty.salonic.hu" class="btn-main reveal d3" style="display:inline-flex;font-size:15px;padding:20px 52px;">
+      <span>Időpontot foglalok most</span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="cta-meta reveal">Budapest, Károly krt. 21. 1/3 · <a href="tel:+36703891311">+36 70 389 1311</a> · Hétfő–Szombat</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">Be <b>U</b> Beauty</div>
+    <p class="f-tag">Személyre szabott szépségápolás<br>a belváros szívében, 2022 óta.<br><br>Mert megérdemled.</p>
+  </div>
+  <div>
+    <div class="f-title">Kezelések</div>
+    <ul class="f-list">
+      <li><a href="https://www.beubeauty.hu/lezeres-szortelenites">Lézeres szőrtelenítés</a></li>
+      <li><a href="https://www.beubeauty.hu/alakformalas">Alakformálás</a></li>
+      <li><a href="https://www.beubeauty.hu/kozmetika">HydraGlow · Signature 5D</a></li>
+      <li><a href="https://www.beubeauty.hu/hiemt-alakformalas">HIEMT</a></li>
+      <li><a href="https://www.beubeauty.hu/arak">Árak & akciók</a></li>
+    </ul>
+  </div>
+  <div class="f-contact">
+    <div class="f-title">Kapcsolat</div>
+    <a href="tel:+36703891311">+36 70 389 1311</a>
+    <a href="mailto:info@beubeauty.hu">info@beubeauty.hu</a>
+    <a href="#">Károly krt. 21. 1/3, Budapest</a>
+    <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" style="color:var(--gold);margin-top:12px;display:block">Kérdezd Mirát →</a>
+    <a href="https://beubeauty.salonic.hu" style="color:var(--rose-light);font-weight:500;margin-top:8px;display:block">Online időpontfoglalás →</a>
+  </div>
+</footer>
+<div class="f-bottom">
+  <span>© 2026 Be U Beauty Budapest · Minden jog fenntartva</span>
+  <span>Üzemelteti: Netlify · Tervező: Claude</span>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),cr=document.getElementById('cur-r');
+let mx=-100,my=-100,rx=-100,ry=-100;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.qopt,.fcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';cr.style.width='58px';cr.style.height='58px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';cr.style.width='36px';cr.style.height='36px';});
+});
+
+// GREETING
+const h=new Date().getHours();
+const gt=document.getElementById('greet');
+if(h>=5&&h<12)gt.textContent='Jó reggelt! Szép napot kívánunk 🌸';
+else if(h>=12&&h<18)gt.textContent='Jó napot! Látogass meg minket 💕';
+else gt.textContent='Jó estét! Foglalj holnapra időpontot ✨';
+
+// URGENCY — random slots 1-2
+document.getElementById('urg-slots').textContent=(Math.random()>.5?'1':'2')+' szabad hely';
+
+// HAPPY HOUR — 10:00–14:00 között aktív
+const happyBar=document.querySelector('.happy-pill');
+if(h<10||h>=14){happyBar.innerHTML='✦ Happy Hour hamarosan · Iratkozz fel értesítőre';happyBar.style.opacity='.6';}
+
+// TYPEWRITER
+const words=['igazán jól','magabiztosan','ragyogóan','önfeledten','szépnek'];
+let wi=0,ci=0,del=false;
+const tw=document.getElementById('tw');
+function loop(){
+  const w=words[wi];
+  if(!del){tw.textContent=w.slice(0,ci+1);ci++;if(ci===w.length){del=true;setTimeout(loop,2000);return;}setTimeout(loop,80);}
+  else{tw.textContent=w.slice(0,ci-1);ci--;if(ci===0){del=false;wi=(wi+1)%words.length;setTimeout(loop,300);return;}setTimeout(loop,45);}
+}
+setTimeout(loop,600);
+
+// SCROLL
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+
+// QUIZ
+const qdata=[
+  {l:'Neked való kezelés',t:'Lézeres szőrtelenítés — és soha többé nem nyúlsz borotvához.',s:'Orvosi diódalézerünkkel már az első alkalmak után látványos a csökkenés. 6–10 kezelés, és tartósan sima a bőröd. Most 2+1 csomagunkkal a harmadik kezelés ingyenes!',m:'Ha van érzékeny területed — PCOS, hormonális szőrzet — <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank">kérdezd Mirát</a> diszkrétan.'},
+  {l:'Neked való kezelés',t:'Alakformálás — gépi kezelés, ami valóban mér centikkel.',s:'HIEMT, lipolézer vagy NarancsbőrSTOP — konzultáción megbeszéljük melyik a legjobb út neked. Pár héten belül látható és mérhető eredmény, fájdalommentesen.',m:'Kérdésed van? <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank">Kérdezd Mirát</a>.'},
+  {l:'Neked való kezelés',t:'HydraGlow vagy Signature 5D — és a bőröd azonnal más.',s:'Nyomásmentes mélytisztítás, rádiófrekvenciás feszesítés, hidratálás — Signature arckezeléseink komplex hatással bírnak. Az eredmény már az első kezelés után látható. Ma még 2 szabad hely!',m:''},
+  {l:'Nincs tabu nálunk',t:'Kérdezd Mirát — vagy gyere be és meséld el.',s:'PCOS, hormonális szőrzet, intim területek — ezek nem a te hibád, és segíteni tudunk. A konzultáció diszkrét, ítéletmentes. Ha személyesen nehéz kimondani, Mira digitálisan segít megtalálni a megfelelő kezelést.',m:'<a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank">Kérdezd Mirát most →</a>'},
+];
+function setQ(el,i){
+  document.querySelectorAll('.qopt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  const d=qdata[i];
+  document.getElementById('qr-l').textContent=d.l;
+  document.getElementById('qr-t').textContent=d.t;
+  document.getElementById('qr-s').textContent=d.s;
+  document.getElementById('qr-m').innerHTML=d.m?'💬 '+d.m:'';
+  const qr=document.getElementById('qr');
+  qr.classList.add('show');
+  setTimeout(()=>qr.scrollIntoView({behavior:'smooth',block:'nearest'}),120);
+}
+</script>
+</body>
+</html>
