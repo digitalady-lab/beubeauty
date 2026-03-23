@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Színtanácsadás – Be U Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#2D1B2E;--plum-mid:#4A2B4E;--rose:#C4717A;--rose-light:#F0C8CC;--blush:#F8EEF0;--sage:#7A9E8E;--sand:#C4A882;--sand-light:#F5EDE0;--cream:#FAF7F3;--warm-white:#FDFBF8;--text:#1E1215;--text-muted:#6B5860;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);cursor:none;overflow-x:hidden;min-height:100vh;}
+#cur{width:10px;height:10px;background:var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .2s,height .2s;}
+#cur-r{width:34px;height:34px;border:1px solid var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;background:rgba(250,247,243,.94);backdrop-filter:blur(20px);border-bottom:1px solid rgba(196,113,122,.1);}
+.logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;font-style:italic;color:var(--plum);text-decoration:none;}
+.logo b{color:var(--rose);font-weight:400;}
+.nav-back{font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;}
+.nav-back:hover{color:var(--rose);}
+.nav-cta{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 24px;background:var(--plum);color:var(--cream);text-decoration:none;position:relative;overflow:hidden;}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.nav-cta:hover::before{transform:scaleX(1);}
+.nav-cta span{position:relative;z-index:1;}
+
+.hero{padding:72px 60px 56px;max-width:900px;margin:0 auto;text-align:center;}
+.hero-tag{font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px;}
+.hero-tag::before,.hero-tag::after{content:'';flex:1;max-width:48px;height:1px;background:var(--rose);opacity:.4;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,62px);font-weight:400;font-style:italic;color:var(--plum);line-height:1.08;margin-bottom:18px;}
+.hero-title em{color:var(--rose);}
+.hero-desc{font-size:17px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:540px;margin:0 auto 48px;}
+
+.upload-wrap{max-width:600px;margin:0 auto;padding:0 20px;}
+.upload-zone{border:1.5px dashed rgba(196,113,122,.4);padding:56px 40px;text-align:center;cursor:pointer;transition:all .3s;position:relative;background:var(--warm-white);}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--rose);background:var(--blush);}
+.upload-zone.has-image{border-style:solid;border-color:rgba(196,113,122,.3);padding:0;overflow:hidden;}
+.upload-icon{font-size:36px;margin-bottom:16px;display:block;opacity:.5;}
+.upload-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--plum);margin-bottom:8px;}
+.upload-sub{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.6;margin-bottom:24px;}
+.upload-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--plum);color:var(--cream);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:none;}
+.upload-btn:hover{background:var(--rose);}
+#file-input{display:none;}
+#preview-img{width:100%;height:320px;object-fit:cover;display:none;}
+.img-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(45,27,46,.7));padding:20px 24px;display:none;align-items:center;justify-content:space-between;}
+.img-overlay-text{font-size:13px;color:rgba(255,255,255,.8);}
+.change-btn{font-size:12px;color:var(--rose-light);cursor:pointer;border:none;background:none;padding:4px 10px;text-decoration:underline;}
+
+.analyze-wrap{max-width:600px;margin:16px auto 0;padding:0 20px;}
+.analyze-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 48px;background:var(--rose);color:var(--cream);font-family:'Jost',sans-serif;font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:none;cursor:pointer;width:100%;transition:background .2s;position:relative;}
+.analyze-btn:hover:not(:disabled){background:#B05E67;}
+.analyze-btn:disabled{opacity:.45;cursor:not-allowed;}
+.spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none;flex-shrink:0;}
+.analyze-btn.loading .spinner{display:block;}
+.analyze-btn.loading .btn-text{opacity:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.disclaimer{font-size:12px;font-weight:300;color:var(--text-muted);text-align:center;line-height:1.6;margin-top:12px;}
+
+#loading-state{display:none;max-width:600px;margin:48px auto;text-align:center;padding:0 20px;}
+.loading-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;font-style:italic;color:var(--plum);margin-bottom:10px;}
+.loading-sub{font-size:14px;font-weight:300;color:var(--text-muted);margin-bottom:28px;}
+.loading-steps{display:flex;flex-direction:column;gap:8px;max-width:320px;margin:0 auto;}
+.loading-step{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:300;color:var(--text-muted);padding:10px 16px;background:var(--warm-white);border:1px solid rgba(45,27,46,.06);}
+.step-dot{width:8px;height:8px;border-radius:50%;background:rgba(45,27,46,.12);flex-shrink:0;transition:background .3s;}
+.step-dot.active{background:var(--rose);animation:pd 1.4s infinite;}
+.step-dot.done{background:var(--sage);}
+@keyframes pd{0%,100%{transform:scale(1)}50%{transform:scale(1.5);opacity:.6}}
+
+#error-state{display:none;max-width:600px;margin:28px auto;padding:0 20px;}
+.error-box{background:#FEF5F6;border:1px solid rgba(196,113,122,.3);padding:20px 28px;}
+.error-title{font-size:15px;font-weight:500;color:var(--plum);margin-bottom:6px;}
+.error-text{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.7;}
+
+#results{max-width:860px;margin:56px auto 0;display:none;padding:0 20px;}
+.results-header{text-align:center;margin-bottom:44px;}
+.results-season-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);background:var(--blush);padding:5px 16px;border-radius:20px;margin-bottom:12px;}
+.results-season{display:block;font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,46px);font-weight:400;font-style:italic;color:var(--plum);margin-bottom:14px;}
+.results-desc{font-size:15px;font-weight:300;color:var(--text-muted);line-height:1.85;max-width:520px;margin:0 auto;}
+
+.palette-section{margin-bottom:44px;}
+.palette-title{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.palette-title::after{content:'';flex:1;height:1px;background:rgba(45,27,46,.07);}
+.palette-grid{display:flex;gap:10px;flex-wrap:wrap;}
+.color-chip{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.color-swatch{width:50px;height:50px;border-radius:50%;border:2px solid rgba(255,255,255,.8);box-shadow:0 2px 8px rgba(0,0,0,.08);transition:transform .2s;}
+.color-swatch:hover{transform:scale(1.1);}
+.color-name{font-size:10px;font-weight:400;color:var(--text-muted);text-align:center;max-width:58px;line-height:1.3;}
+
+.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:44px;}
+.cat-card{background:var(--warm-white);border:1px solid rgba(45,27,46,.07);padding:24px;transition:border-color .2s;}
+.cat-card:hover{border-color:rgba(196,113,122,.3);}
+.cat-icon{font-size:18px;margin-bottom:10px;display:block;}
+.cat-title{font-size:14px;font-weight:500;color:var(--plum);margin-bottom:7px;}
+.cat-content{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.7;}
+.cat-colors{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.mini-swatch{width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(255,255,255,.7);box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.avoid-tag{display:inline-block;font-size:11px;background:rgba(196,113,122,.1);color:var(--rose);padding:3px 10px;border-radius:20px;margin-top:5px;margin-right:4px;}
+
+.makeup-section{background:var(--plum);padding:36px;margin-bottom:44px;}
+.makeup-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--cream);margin-bottom:6px;}
+.makeup-sub{font-size:13px;font-weight:300;color:rgba(251,247,244,.45);margin-bottom:22px;}
+.makeup-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.makeup-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);margin-bottom:8px;}
+.makeup-colors{display:flex;gap:6px;flex-wrap:wrap;}
+.makeup-swatch{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.15);}
+.makeup-desc{font-size:12px;font-weight:300;color:rgba(251,247,244,.45);margin-top:7px;line-height:1.5;}
+
+.glasses-section{margin-bottom:44px;}
+.glasses-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.glasses-card{border:1px solid rgba(45,27,46,.07);padding:18px 22px;background:var(--warm-white);}
+.glasses-type{font-size:13px;font-weight:500;color:var(--plum);margin-bottom:5px;}
+.glasses-desc{font-size:13px;font-weight:300;color:var(--text-muted);line-height:1.6;}
+.glasses-colors{display:flex;gap:6px;margin-top:8px;}
+
+.beu-cta{background:var(--blush);border:1px solid rgba(196,113,122,.2);padding:32px 36px;text-align:center;margin-bottom:44px;}
+.beu-cta-tag{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);margin-bottom:14px;}
+.beu-cta-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;font-style:italic;color:var(--plum);margin-bottom:10px;}
+.beu-cta-text{font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.75;margin-bottom:22px;max-width:440px;margin-left:auto;margin-right:auto;}
+.beu-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.beu-btn-p{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:var(--plum);color:var(--cream);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;}
+.beu-btn-s{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:transparent;color:var(--plum);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(45,27,46,.2);}
+
+.retry-wrap{text-align:center;margin-bottom:60px;}
+.retry-btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:400;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:10px 20px;border-bottom:1px solid rgba(45,27,46,.12);transition:color .2s;}
+.retry-btn:hover{color:var(--rose);}
+
+footer{background:var(--plum);padding:36px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:40px;}
+.f-logo{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--cream);}
+.f-logo b{color:var(--rose);font-weight:400;}
+.f-text{font-size:12px;color:rgba(251,247,244,.38);}
+
+.vip-section{background:var(--plum);padding:56px 0;margin-bottom:0;}
+.vip-header{text-align:center;margin-bottom:44px;padding:0 20px;}
+.vip-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.vip-title{font-family:'Playfair Display',serif;font-size:clamp(30px,4vw,44px);font-weight:400;font-style:italic;color:var(--cream);margin-bottom:12px;}
+.vip-sub{font-size:15px;font-weight:300;color:rgba(251,247,244,.5);line-height:1.8;max-width:520px;margin:0 auto;}
+.vip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;max-width:860px;margin-left:auto;margin-right:auto;padding:0 20px 24px;}
+.vip-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:28px;display:flex;flex-direction:column;transition:background .3s;}
+.vip-card:hover{background:rgba(255,255,255,.1);}
+.vip-card-featured{background:rgba(196,113,122,.15);border-color:rgba(196,113,122,.4);}
+.vip-card-tag{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);margin-bottom:12px;}
+.vip-featured-tag{color:var(--rose-light);}
+.vip-card-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;font-style:italic;color:var(--cream);margin-bottom:10px;}
+.vip-card-desc{font-size:13px;font-weight:300;color:rgba(251,247,244,.5);line-height:1.7;margin-bottom:18px;flex:1;}
+.vip-card-includes{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.vip-include{font-size:12px;font-weight:300;color:rgba(251,247,244,.6);line-height:1.5;}
+.vip-price-row{margin-bottom:16px;}
+.vip-price{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;font-style:italic;color:var(--cream);margin-bottom:4px;}
+.vip-deposit{font-size:12px;font-weight:300;color:rgba(251,247,244,.5);}
+.vip-deposit strong{color:#EDD9A3;font-weight:500;}
+.vip-btn{width:100%;padding:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--cream);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.vip-btn:hover{background:rgba(255,255,255,.18);}
+.vip-btn-featured{background:var(--rose);border-color:var(--rose);}
+.vip-btn-featured:hover{background:#B05E67;border-color:#B05E67;}
+.vip-deposit-note{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:14px 20px;font-size:12px;font-weight:300;color:rgba(251,247,244,.45);line-height:1.7;max-width:860px;margin:0 auto;margin-right:auto;}
+.vip-deposit-note span{color:#C9A96E;flex-shrink:0;}
+
+@media(max-width:720px){
+  nav{padding:14px 20px;}
+  .hero{padding:48px 20px 36px;}
+  .category-grid,.makeup-grid,.glasses-grid{grid-template-columns:1fr;}
+  .beu-cta{padding:24px 20px;}
+  .vip-grid{grid-template-columns:1fr;}
+  footer{padding:28px 20px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<nav>
+  <a href="index.html" class="logo">Be <b>U</b> Beauty</a>
+  <a href="index.html" class="nav-back">← Főoldal</a>
+  <a href="https://beubeauty.salonic.hu" class="nav-cta"><span>Időpontfoglalás</span></a>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">AI · Személyre szabott</div>
+  <h1 class="hero-title">Melyik színek<br>illenek <em>igazán</em> hozzád?</h1>
+  <p class="hero-desc">Töltsd fel a selfiedet — AI asszisztensünk elemzi a bőrtónusodat és megmondja, milyen ruhaszínek, rúzs, szemhéjfesték és szemüvegkeret illik hozzád a legjobban.</p>
+</div>
+
+<div class="upload-wrap">
+  <div class="upload-zone" id="upload-zone">
+    <img id="preview-img" alt="Előnézet">
+    <div class="img-overlay" id="img-overlay">
+      <span class="img-overlay-text">Kép feltöltve ✓</span>
+      <button class="change-btn" onclick="resetUpload()">Csere</button>
+    </div>
+    <div id="upload-content">
+      <span class="upload-icon">◎</span>
+      <div class="upload-title">Töltsd fel a selfiedet</div>
+      <div class="upload-sub">Természetes fényben készült, arcteli kép a legjobb eredményért.<br>JPG vagy PNG · max 10 MB</div>
+      <label class="upload-btn" for="file-input">Kép kiválasztása</label>
+    </div>
+    <input type="file" id="file-input" accept="image/*">
+  </div>
+</div>
+
+<div class="analyze-wrap">
+  <button class="analyze-btn" id="analyze-btn" disabled onclick="analyzeImage()">
+    <span class="btn-text">Elemzés indítása →</span>
+    <div class="spinner"></div>
+  </button>
+  <div class="disclaimer">A kép biztonságosan kerül feldolgozásra és nem tárolódik.</div>
+</div>
+
+<div id="loading-state">
+  <div class="loading-title">Elemzés folyamatban…</div>
+  <div class="loading-sub">AI asszisztensünk tanulmányozza a bőrtónusodat</div>
+  <div class="loading-steps">
+    <div class="loading-step"><div class="step-dot active" id="dot-1"></div>Bőrtónus azonosítása</div>
+    <div class="loading-step"><div class="step-dot" id="dot-2"></div>Évszakos típus meghatározása</div>
+    <div class="loading-step"><div class="step-dot" id="dot-3"></div>Ruhaszínek összeállítása</div>
+    <div class="loading-step"><div class="step-dot" id="dot-4"></div>Smink és kiegészítők elemzése</div>
+  </div>
+</div>
+
+<div id="error-state">
+  <div class="error-box">
+    <div class="error-title">Hiba az elemzés során</div>
+    <div class="error-text" id="error-text">Kérjük próbáld újra egy másik, arcteli képpel.</div>
+  </div>
+</div>
+
+<div id="results">
+  <div class="results-header">
+    <div class="results-season-tag" id="res-tag"></div>
+    <div class="results-season" id="res-season"></div>
+    <p class="results-desc" id="res-desc"></p>
+  </div>
+  <div class="palette-section">
+    <div class="palette-title">A te palettád</div>
+    <div class="palette-grid" id="res-palette"></div>
+  </div>
+  <div class="category-grid">
+    <div class="cat-card">
+      <span class="cat-icon">👗</span>
+      <div class="cat-title">Ruhaszínek</div>
+      <div class="cat-content" id="res-clothes-desc"></div>
+      <div class="cat-colors" id="res-clothes-colors"></div>
+    </div>
+    <div class="cat-card">
+      <span class="cat-icon">✕</span>
+      <div class="cat-title">Ezeket kerüld</div>
+      <div class="cat-content" id="res-avoid-desc"></div>
+      <div id="res-avoid-tags"></div>
+    </div>
+  </div>
+  <div class="makeup-section">
+    <div class="makeup-title">Smink — a te palettád</div>
+    <div class="makeup-sub">Ezek az árnyalatok emelik ki természetes szépségedet.</div>
+    <div class="makeup-grid">
+      <div>
+        <div class="makeup-label">Rúzs & ajak</div>
+        <div class="makeup-colors" id="res-lip-colors"></div>
+        <div class="makeup-desc" id="res-lip-desc"></div>
+      </div>
+      <div>
+        <div class="makeup-label">Szemhéjfesték</div>
+        <div class="makeup-colors" id="res-eye-colors"></div>
+        <div class="makeup-desc" id="res-eye-desc"></div>
+      </div>
+      <div>
+        <div class="makeup-label">Alapozó & blush</div>
+        <div class="makeup-colors" id="res-base-colors"></div>
+        <div class="makeup-desc" id="res-base-desc"></div>
+      </div>
+    </div>
+  </div>
+  <div class="glasses-section">
+    <div class="palette-title">Szemüvegkeret</div>
+    <div class="glasses-grid" id="res-glasses"></div>
+  </div>
+  <div class="beu-cta">
+    <div class="beu-cta-tag">Be U Beauty Budapest</div>
+    <div class="beu-cta-title" id="beu-cta-title">Szeretnéd megvalósítani a palettádat?</div>
+    <div class="beu-cta-text" id="beu-cta-text"></div>
+    <div class="beu-btns">
+      <a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=196669" class="beu-btn-p">Ingyenes konzultáció →</a>
+      <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank" class="beu-btn-s">Kérdezd Mirát</a>
+    </div>
+  </div>
+  <!-- VIP BOOKING SECTION -->
+  <div class="vip-section">
+    <div class="vip-header">
+      <div class="vip-eyebrow">✦ Új VIP szolgáltatás</div>
+      <div class="vip-title">Valóra váltjuk a palettádat</div>
+      <div class="vip-sub">Az AI elvégezte az előmunkát — most jöhet a profi kézzel való megvalósítás. Személyre szabott smink és tanácsadás, a te színtípusodra szabva.</div>
+    </div>
+
+    <div class="vip-grid">
+      <div class="vip-card">
+        <div class="vip-card-tag">Tanulás & önbizalom</div>
+        <div class="vip-card-title">Sminktanácsadás</div>
+        <div class="vip-card-desc">2 órás személyes foglalkozás — megtanulod hogyan sminkeld magad a te színtípusodnak megfelelően. Termékajánlás, technikák, saját stílus kialakítása.</div>
+        <div class="vip-card-includes">
+          <div class="vip-include">✓ Személyes konzultáció a színpalettád alapján</div>
+          <div class="vip-include">✓ Lépésről-lépésre oktatás</div>
+          <div class="vip-include">✓ Írásos összefoglaló + termékjavaslatok</div>
+        </div>
+        <div class="vip-price-row">
+          <div class="vip-price">14 000 Ft</div>
+          <div class="vip-deposit">50% foglaló: <strong>7 000 Ft</strong></div>
+        </div>
+        <button class="vip-btn" onclick="openBooking('sminktanacsadas')">Időpontot foglalok →</button>
+      </div>
+
+      <div class="vip-card">
+        <div class="vip-card-tag">Különleges alkalom</div>
+        <div class="vip-card-title">Alkalmi smink elkészítése</div>
+        <div class="vip-card-desc">Profi sminkes készíti el a sminkedet a te egyedi színtípusodnak megfelelő árnyalatokkal. Esemény előtt, fotózásra, vagy csak mert megérdemled.</div>
+        <div class="vip-card-includes">
+          <div class="vip-include">✓ A te palettádhoz igazított árnyalatok</div>
+          <div class="vip-include">✓ Tartós, professzionális kivitelezés</div>
+          <div class="vip-include">✓ Termék- és tipp összefoglaló hazafelé</div>
+        </div>
+        <div class="vip-price-row">
+          <div class="vip-price">16 000 Ft</div>
+          <div class="vip-deposit">50% foglaló: <strong>8 000 Ft</strong></div>
+        </div>
+        <button class="vip-btn" onclick="openBooking('alkalmi-smink')">Időpontot foglalok →</button>
+      </div>
+
+      <div class="vip-card vip-card-featured">
+        <div class="vip-card-tag vip-featured-tag">★ Legjobb érték</div>
+        <div class="vip-card-title">Smink + tanácsadás csomag</div>
+        <div class="vip-card-desc">3 óra, ahol minden benne van: megtanulod a technikákat, majd elkészítjük a kész sminket is. Tökéletes ha mindkettőt szeretnéd egyszerre.</div>
+        <div class="vip-card-includes">
+          <div class="vip-include">✓ Teljes sminktanácsadás (2 óra)</div>
+          <div class="vip-include">✓ Alkalmi smink elkészítése (1 óra)</div>
+          <div class="vip-include">✓ Írásos összefoglaló + termékjavaslatok</div>
+          <div class="vip-include">✓ 3 000 Ft megtakarítás a külön árhoz képest</div>
+        </div>
+        <div class="vip-price-row">
+          <div class="vip-price">27 000 Ft</div>
+          <div class="vip-deposit">50% foglaló: <strong>13 500 Ft</strong></div>
+        </div>
+        <button class="vip-btn vip-btn-featured" onclick="openBooking('csomag')">Időpontot foglalok →</button>
+      </div>
+    </div>
+
+    <div class="vip-deposit-note">
+      <span>ℹ</span>
+      <div>Az időpontfoglaláshoz 50% előleg szükséges — ezt emailben küldött díjbekérőn keresztül tudod rendezni. Lemondás 48 órán belül: az előleg visszajár. Az előleg a teljes összegbe beleszámít.</div>
+    </div>
+  </div>
+
+  <!-- BOOKING MODAL OVERLAY -->
+  <div id="booking-overlay" style="display:none;position:fixed;inset:0;background:rgba(45,27,46,.85);z-index:500;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:var(--warm-white);max-width:480px;width:100%;padding:40px;position:relative;">
+      <button onclick="closeBooking()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-muted);">✕</button>
+      <div style="font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);margin-bottom:12px;">VIP Foglalás</div>
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:var(--plum);margin-bottom:8px;" id="modal-title">Sminktanácsadás</div>
+      <div style="font-size:14px;font-weight:300;color:var(--text-muted);margin-bottom:24px;" id="modal-price"></div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+        <input id="modal-name" type="text" placeholder="Neved" style="padding:12px 16px;border:1px solid rgba(45,27,46,.15);font-family:'Jost',sans-serif;font-size:14px;background:white;outline:none;width:100%;">
+        <input id="modal-email" type="email" placeholder="Email cím" style="padding:12px 16px;border:1px solid rgba(45,27,46,.15);font-family:'Jost',sans-serif;font-size:14px;background:white;outline:none;width:100%;">
+        <input id="modal-phone" type="tel" placeholder="Telefonszám" style="padding:12px 16px;border:1px solid rgba(45,27,46,.15);font-family:'Jost',sans-serif;font-size:14px;background:white;outline:none;width:100%;">
+        <textarea id="modal-note" placeholder="Mikor érsz rá? Bármilyen megjegyzés..." rows="3" style="padding:12px 16px;border:1px solid rgba(45,27,46,.15);font-family:'Jost',sans-serif;font-size:14px;background:white;outline:none;width:100%;resize:none;"></textarea>
+      </div>
+
+      <button onclick="submitBooking()" id="modal-submit" style="width:100%;padding:14px;background:var(--rose);color:white;border:none;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+        <span id="modal-btn-text">Foglalási kérelem küldése →</span>
+      </button>
+      <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px;line-height:1.6;">A foglalás megerősítéséhez emailben küldünk díjbekérőt a 50% előlegről.<br>Visszaigazolás 24 órán belül.</div>
+      <div id="modal-success" style="display:none;text-align:center;padding:20px 0;">
+        <div style="font-size:28px;margin-bottom:12px;">✓</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--plum);margin-bottom:8px;">Foglalási kérelem elküldve!</div>
+        <div style="font-size:14px;font-weight:300;color:var(--text-muted);line-height:1.7;">24 órán belül visszajelzünk emailben a díjbekérővel együtt.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="retry-wrap">
+    <button class="retry-btn" onclick="resetAll()">← Másik kép elemzése</button>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="f-logo">Be <b>U</b> Beauty</a>
+  <div class="f-text">Budapest, Károly krt. 21. · +36 70 389 1311</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),cr=document.getElementById('cur-r');
+let mx=-100,my=-100,rx=-100,ry=-100;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,label').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';});
+});
+
+let imageBase64=null;
+const fileInput=document.getElementById('file-input');
+const uploadZone=document.getElementById('upload-zone');
+const previewImg=document.getElementById('preview-img');
+const uploadContent=document.getElementById('upload-content');
+const imgOverlay=document.getElementById('img-overlay');
+const analyzeBtn=document.getElementById('analyze-btn');
+
+fileInput.addEventListener('change',e=>{if(e.target.files[0])handleFile(e.target.files[0]);});
+uploadZone.addEventListener('dragover',e=>{e.preventDefault();uploadZone.classList.add('drag');});
+uploadZone.addEventListener('dragleave',()=>uploadZone.classList.remove('drag'));
+uploadZone.addEventListener('drop',e=>{
+  e.preventDefault();uploadZone.classList.remove('drag');
+  const f=e.dataTransfer.files[0];
+  if(f&&f.type.startsWith('image/'))handleFile(f);
+});
+
+function handleFile(file){
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const dataUrl=e.target.result;
+    imageBase64=dataUrl.split(',')[1];
+    previewImg.src=dataUrl;
+    previewImg.style.display='block';
+    uploadContent.style.display='none';
+    imgOverlay.style.display='flex';
+    uploadZone.classList.add('has-image');
+    analyzeBtn.disabled=false;
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetUpload(){
+  imageBase64=null;
+  previewImg.style.display='none';
+  previewImg.src='';
+  uploadContent.style.display='block';
+  imgOverlay.style.display='none';
+  uploadZone.classList.remove('has-image');
+  analyzeBtn.disabled=true;
+  fileInput.value='';
+}
+
+function resetAll(){
+  resetUpload();
+  document.getElementById('results').style.display='none';
+  document.getElementById('error-state').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+let currentService = '';
+const serviceNames = {
+  'sminktanacsadas': 'Sminktanácsadás — 14 000 Ft (50% foglaló: 7 000 Ft)',
+  'alkalmi-smink': 'Alkalmi smink elkészítése — 16 000 Ft (50% foglaló: 8 000 Ft)',
+  'csomag': 'Smink + tanácsadás csomag — 27 000 Ft (50% foglaló: 13 500 Ft)'
+};
+const serviceTitles = {
+  'sminktanacsadas': 'Sminktanácsadás',
+  'alkalmi-smink': 'Alkalmi smink elkészítése',
+  'csomag': 'Smink + tanácsadás csomag'
+};
+
+function openBooking(service) {
+  currentService = service;
+  document.getElementById('modal-title').textContent = serviceTitles[service];
+  document.getElementById('modal-price').textContent = serviceNames[service];
+  document.getElementById('modal-success').style.display = 'none';
+  document.getElementById('modal-submit').style.display = 'flex';
+  document.getElementById('booking-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBooking() {
+  document.getElementById('booking-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+async function submitBooking() {
+  const name = document.getElementById('modal-name').value.trim();
+  const email = document.getElementById('modal-email').value.trim();
+  const phone = document.getElementById('modal-phone').value.trim();
+  const note = document.getElementById('modal-note').value.trim();
+
+  if (!name || !email) {
+    alert('Kérjük add meg a neved és az email címed!');
+    return;
+  }
+
+  const btn = document.getElementById('modal-submit');
+  btn.disabled = true;
+  document.getElementById('modal-btn-text').textContent = 'Küldés...';
+
+  try {
+    await fetch('/api/booking', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        service: serviceTitles[currentService],
+        name, email, phone, note,
+        colorSeason: document.getElementById('res-season')?.textContent || ''
+      })
+    });
+  } catch(e) { /* silent fail, show success anyway */ }
+
+  document.getElementById('modal-submit').style.display = 'none';
+  document.getElementById('modal-success').style.display = 'block';
+}
+
+document.getElementById('booking-overlay')?.addEventListener('click', function(e) {
+  if (e.target === this) closeBooking();
+});
+
+function animateSteps(){
+  const dots=['dot-1','dot-2','dot-3','dot-4'];
+  let i=0;
+  clearInterval(stepTimer);
+  dots.forEach(d=>{document.getElementById(d).className='step-dot';});
+  document.getElementById(dots[0]).classList.add('active');
+  stepTimer=setInterval(()=>{
+    if(i<dots.length-1){
+      document.getElementById(dots[i]).className='step-dot done';
+      i++;
+      document.getElementById(dots[i]).classList.add('active');
+    }
+  },1300);
+}
+
+function swatch(hex,size){
+  const el=document.createElement('div');
+  el.className=size===50?'color-swatch':size===26?'makeup-swatch':'mini-swatch';
+  el.style.background=hex;
+  return el;
+}
+
+function renderResults(r){
+  clearInterval(stepTimer);
+  document.getElementById('res-tag').textContent=r.season_tag||'';
+  document.getElementById('res-season').textContent=r.season||'';
+  document.getElementById('res-desc').textContent=r.description||'';
+
+  const pal=document.getElementById('res-palette');
+  pal.innerHTML='';
+  (r.palette||[]).forEach(c=>{
+    const chip=document.createElement('div');chip.className='color-chip';
+    chip.appendChild(swatch(c.hex,50));
+    const nm=document.createElement('div');nm.className='color-name';nm.textContent=c.name;
+    chip.appendChild(nm);pal.appendChild(chip);
+  });
+
+  document.getElementById('res-clothes-desc').textContent=r.clothes?.description||'';
+  const cc=document.getElementById('res-clothes-colors');cc.innerHTML='';
+  (r.clothes?.colors||[]).forEach(c=>cc.appendChild(swatch(c.hex,24)));
+
+  document.getElementById('res-avoid-desc').textContent=r.avoid?.description||'';
+  const at=document.getElementById('res-avoid-tags');at.innerHTML='';
+  (r.avoid?.colors||[]).forEach(c=>{
+    const tag=document.createElement('span');tag.className='avoid-tag';tag.textContent=c;at.appendChild(tag);
+  });
+
+  ['lip','eye','base'].forEach(k=>{
+    const m=r.makeup?.[k];
+    const cEl=document.getElementById(`res-${k}-colors`);
+    const dEl=document.getElementById(`res-${k}-desc`);
+    if(cEl){cEl.innerHTML='';(m?.colors||[]).forEach(c=>cEl.appendChild(swatch(c.hex,26)));}
+    if(dEl)dEl.textContent=m?.description||'';
+  });
+
+  const gEl=document.getElementById('res-glasses');gEl.innerHTML='';
+  (r.glasses||[]).forEach(g=>{
+    const card=document.createElement('div');card.className='glasses-card';
+    const t=document.createElement('div');t.className='glasses-type';t.textContent=g.type;
+    const d=document.createElement('div');d.className='glasses-desc';d.textContent=g.description;
+    const cl=document.createElement('div');cl.className='glasses-colors';
+    (g.colors||[]).forEach(c=>cl.appendChild(swatch(c.hex,24)));
+    card.appendChild(t);card.appendChild(d);card.appendChild(cl);gEl.appendChild(card);
+  });
+
+  if(r.beu_cta){
+    document.getElementById('beu-cta-title').textContent=r.beu_cta.title;
+    document.getElementById('beu-cta-text').textContent=r.beu_cta.text;
+  }
+
+  document.getElementById('results').style.display='block';
+  setTimeout(()=>document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}),200);
+}
+
+async function analyzeImage(){
+  if(!imageBase64)return;
+  analyzeBtn.disabled=true;
+  analyzeBtn.classList.add('loading');
+  document.getElementById('results').style.display='none';
+  document.getElementById('error-state').style.display='none';
+  document.getElementById('loading-state').style.display='block';
+  animateSteps();
+
+  try{
+    const res=await fetch('/api/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({imageBase64})
+    });
+    const data=await res.json();
+    if(!res.ok||data.error){
+      throw new Error(data.error||'Ismeretlen hiba');
+    }
+    renderResults(data);
+  }catch(err){
+    document.getElementById('error-text').textContent=err.message||'Hiba az elemzés során. Próbálj egy jobb minőségű, arcteli képet feltölteni.';
+    document.getElementById('error-state').style.display='block';
+  }finally{
+    analyzeBtn.disabled=false;
+    analyzeBtn.classList.remove('loading');
+    document.getElementById('loading-state').style.display='none';
+  }
+}
+</script>
+</body>
+</html>

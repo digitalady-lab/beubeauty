@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gépi alakformálás 2026 – HIEMT, lipolézer, rádiófrekvencia: tényleg működik? | Be U Beauty</title>
+<meta name="description" content="Működik-e a gépi alakformálás? HIEMT, lipolézer, ultrahangos zsírbontás, rádiófrekvencia – őszintén, centikkel mérve. Be U Beauty Budapest tapasztalatai.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#2D1B2E;--plum-mid:#4A2B4E;--rose:#D4737A;--rose-light:#F2C4C8;--blush:#F9EEF0;--gold:#C9A96E;--gold-light:#EDD9A3;--cream:#FBF7F4;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--plum);cursor:none;overflow-x:hidden;}
+#cur{width:10px;height:10px;background:var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
+#cur-r{width:36px;height:36px;border:1.5px solid var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:rgba(251,247,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,115,122,.1);}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--plum);text-decoration:none;}
+.logo b{color:var(--rose);font-weight:400;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--plum-mid);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--rose);}
+.nav-cta{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:12px 28px;background:var(--plum);color:var(--cream);text-decoration:none;position:relative;overflow:hidden;}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.nav-cta:hover::before{transform:scaleX(1);}
+.nav-cta span{position:relative;z-index:1;}
+
+.article-hero{background:var(--plum);padding:100px 80px 80px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(212,115,122,.18) 0%,transparent 65%);pointer-events:none;}
+.art-meta{font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:16px;position:relative;z-index:1;flex-wrap:wrap;}
+.art-meta-sep{width:4px;height:4px;border-radius:50%;background:rgba(201,169,110,.4);}
+.art-title{font-family:'Playfair Display',serif;font-size:clamp(34px,4.5vw,58px);font-weight:400;font-style:italic;color:var(--cream);line-height:1.1;margin-bottom:24px;position:relative;z-index:1;max-width:780px;}
+.art-intro{font-size:18px;font-weight:300;color:rgba(251,247,244,.52);line-height:1.85;max-width:620px;position:relative;z-index:1;}
+
+.body{max-width:720px;margin:0 auto;padding:80px 40px;}
+h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,36px);font-weight:400;font-style:italic;color:var(--plum);margin:56px 0 18px;line-height:1.2;}
+h3{font-size:18px;font-weight:500;color:var(--plum);margin:32px 0 10px;}
+p{font-size:16px;font-weight:300;color:var(--plum-mid);line-height:1.9;margin-bottom:18px;}
+strong{font-weight:500;color:var(--plum);}
+a{color:var(--rose);text-decoration:none;border-bottom:1px solid rgba(212,115,122,.3);}
+
+.highlight{background:var(--blush);border-left:3px solid var(--rose);padding:18px 24px;margin:24px 0;font-size:15px;font-weight:300;color:var(--plum-mid);line-height:1.8;}
+.highlight strong{color:var(--plum);}
+
+.treatment-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+.tc{background:white;border:1px solid rgba(45,27,46,.08);padding:24px;transition:border-color .2s;}
+.tc:hover{border-color:var(--rose);}
+.tc-icon{font-size:22px;margin-bottom:12px;display:block;}
+.tc-name{font-size:16px;font-weight:500;color:var(--plum);margin-bottom:6px;}
+.tc-desc{font-size:13px;font-weight:300;color:var(--plum-mid);line-height:1.7;margin-bottom:10px;}
+.tc-price{font-size:14px;font-weight:500;color:var(--rose);}
+.tc-dur{font-size:12px;color:var(--plum-mid);margin-top:3px;}
+
+.cta-inline{background:var(--plum);padding:32px 40px;margin:40px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.cta-inline-text{font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:var(--cream);line-height:1.3;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--rose);color:var(--cream);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:none;flex-shrink:0;}
+
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--rose);text-decoration:none;border:none;margin-bottom:40px;}
+
+footer{background:var(--plum);padding:48px 80px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+.f-logo{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--cream);}
+.f-logo b{color:var(--rose);font-weight:400;}
+.f-links{display:flex;gap:24px;list-style:none;}
+.f-links a{font-size:12px;font-weight:300;color:rgba(251,247,244,.45);text-decoration:none;border:none;}
+@media(max-width:800px){nav{padding:16px 24px;}.nav-links{display:none;}.article-hero{padding:80px 24px 60px;}.body{padding:48px 20px;}.treatment-cards{grid-template-columns:1fr;}.cta-inline{flex-direction:column;}footer{padding:40px 24px;flex-direction:column;}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Gépi alakformálás 2026 – HIEMT, lipolézer, rádiófrekvencia: tényleg működik?","author":{"@type":"Organization","name":"Be U Beauty Budapest"},"publisher":{"@type":"Organization","name":"Be U Beauty Budapest","url":"https://www.beubeauty.hu"},"datePublished":"2026-02-01","dateModified":"2026-03-19","description":"Működik-e a gépi alakformálás? HIEMT, lipolézer, ultrahangos zsírbontás, rádiófrekvencia – őszintén, centikkel mérve."}
+</script>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+<nav>
+  <a href="index.html" class="logo">Be <b>U</b> Beauty</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Főoldal</a></li>
+    <li><a href="arak.html">Árak</a></li>
+    <li><a href="faq.html">GYIK</a></li>
+  </ul>
+  <a href="https://beubeauty.salonic.hu" class="nav-cta"><span>Időpontfoglalás</span></a>
+</nav>
+
+<div class="article-hero">
+  <div class="hero-glow"></div>
+  <div class="art-meta">
+    <span>Be U Beauty Budapest</span><span class="art-meta-sep"></span>
+    <span>2026 · Frissítve: március</span><span class="art-meta-sep"></span>
+    <span>7 perc olvasás</span>
+  </div>
+  <h1 class="art-title">Gépi alakformálás 2026 — tényleg működik, és ha igen, melyik neked való?</h1>
+  <p class="art-intro">HIEMT, lipolézer, ultrahang, rádiófrekvencia — a piac tele van ígéretekkel. Mi centikkel mért eredményeket mutatunk, nem szlogeneket.</p>
+</div>
+
+<div class="body">
+  <a href="blog.html" class="back-link">← Vissza a blogra</a>
+
+  <p>Ha már keresgélted az alakformáló kezeléseket, biztosan találkoztál ezekkel a szavakkal: HIEMT, kavitáció, lipolézer, RF, nyirokmasszázs. De mi micsoda, melyik mire való, és melyik adja a legjobb eredményt a te céljaidhoz? Összeszedtük a lényeget — nem marketingszöveg, hanem amit a napi munkánk során tapasztalunk.</p>
+
+  <h2>Először is: mi a különbség diéta, edzés és gépi alakformálás között?</h2>
+  <p>A diéta és az edzés csökkenti az össztest-zsírt — de nem tudja megmondani a testnek, hogy <em>hol</em> égesse el. A makacs zsírlerakódások (has, combok, felkar, derék) sokszor edzéssel sem tűnnek el, mert ezeken a területeken a zsírsejtek hormonálisan „védettek".</p>
+  <p>A gépi alakformálás erre kínál megoldást: <strong>célzottan, egy adott területen</strong> avatkozik be — zsírsejtek bontásával, izomépítéssel vagy bőrfeszesítéssel. Ez nem fogyókúra-helyettesítő, hanem kiegészítő eszköz azok számára, akik már jól étkeznek és mozognak, de bizonyos területeken nem látják az eredményt.</p>
+
+  <div class="highlight"><strong>Fontos elvárás-menedzselés:</strong> A gépi alakformálás centikkel mérhető eredményt ad — nem kilókkal. A mérőszalag a legjobb eszköz az eredmény nyomon követésére, nem a mérleg.</div>
+
+  <h2>A négy fő technológia — és mire jó mindegyik</h2>
+
+  <div class="treatment-cards">
+    <div class="tc">
+      <span class="tc-icon">⚡</span>
+      <div class="tc-name">HIEMT — izomépítés & zsírégetés</div>
+      <div class="tc-desc">Elektromágneses impulzusok, amelyek kényszerfeszítik az izomzatot — 30 perc alatt 20 000 izom-összehúzódás. Amit edzéssel hónapok alatt érsz el, ezt közelíti meg egyetlen alkalom alatt. Zsírt is éget közben.</div>
+      <div class="tc-price">8 900 Ft / alkalom</div>
+      <div class="tc-dur">30 perc · Has, fenék, comb, felkar</div>
+    </div>
+    <div class="tc">
+      <span class="tc-icon">💧</span>
+      <div class="tc-name">Lipolézer — célzott zsírbontás</div>
+      <div class="tc-desc">Lézerenergia hatolja át a bőrt és a zsírsejteket — azok tartalma kiszabadul, majd a test természetes úton eltávolítja. Makacs területekre ideális: has, csípő, derék, kar.</div>
+      <div class="tc-price">8 500 Ft-tól / alkalom</div>
+      <div class="tc-dur">30 perc · Kar, has, csípő, derék</div>
+    </div>
+    <div class="tc">
+      <span class="tc-icon">〰</span>
+      <div class="tc-name">Kavitáció — ultrahangos zsírbontás</div>
+      <div class="tc-desc">Hanghullámok roncsolják a zsírsejteket, amelyek ezután a nyirokrendszeren keresztül ürülnek ki. Különösen hatékony comb, fenék, derék területén — nyirokmasszázzsal kombinálva a legjobb.</div>
+      <div class="tc-price">9 000 Ft / alkalom</div>
+      <div class="tc-dur">30 perc · Fenék, comb, kar, derék</div>
+    </div>
+    <div class="tc">
+      <span class="tc-icon">✦</span>
+      <div class="tc-name">Rádiófrekvencia — bőrfeszesítés</div>
+      <div class="tc-desc">Mélyhő serkenti a kollagéntermelést — a bőr saját maga feszül, rugalmasabbá válik. Narancsbőr, laza bőr ellen a legjobb. Ideálisan a zsírbontó kezelések után alkalmazva.</div>
+      <div class="tc-price">8 000 Ft-tól / alkalom</div>
+      <div class="tc-dur">30 perc · Bármely terület</div>
+    </div>
+  </div>
+
+  <h2>Mi a Hybrid Protokoll — és miért jobb mint egy gép?</h2>
+  <p>A Be U Beauty-ban nem egy gépet adunk — hanem stratégiát. A <strong>Hybrid Protokoll</strong> 60 perces kezelésünk egyszerre alkalmaz több technológiát ugyanazon a területen: zsírbontás + izmosítás + feszesítés kombinációban.</p>
+  <p>A legtöbb helyen egy bérlettel egy géppel kezelnek, és reménykedhetsz. Mi az eredményre fókuszálunk: az első konzultáción felmérjük a célodat, és pontosan azt a technológia-kombinációt alkalmazzuk, ami a legjobb eredményt adja <em>neked</em>.</p>
+
+  <div class="cta-inline">
+    <div class="cta-inline-text">Hybrid Protokoll — 60 perc, több gép, mért eredmény</div>
+    <a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=247139" class="cta-btn">18 900 Ft — Foglalj →</a>
+  </div>
+
+  <h2>Hány alkalom kell és mikor látszik az eredmény?</h2>
+  <p>Az első 1-2 kezelés után a bőr feszesedése és a méretek enyhe csökkenése már érezhető lehet. Látványos, centikkel mérhető eredményhez általában <strong>6-10 kezelés</strong> szükséges az adott területen.</p>
+  <p>Az <strong>Expressz 8×30 perces bérletünk</strong> (69 000 Ft) pontosan erre lett tervezve: 8 alkalom, akár ebédszünetben — belváros, nincs átöltözés, nincs izzadás, nincs tömeg. A te rapid 30 perced, ami tényleg eredményt hoz.</p>
+
+  <h2>Narancsbőr és cellulit ellen: a NarancsbőrSTOP protokoll</h2>
+  <p>A narancsbőr makacs — nincs egyetlen csodakezelés, ami önmagában megoldja. Ezért alkottuk meg a <strong>NarancsbőrSTOP protokollt</strong>: 4 technológia kombinációja, amely a zsírsejteket, a kötőszövetet és a bőrfeszességet egyszerre célozza.</p>
+  <p>Egy 90 perces alkalom ára 18 900 Ft — de ha bérletben gondolkodsz (2, 4 vagy 6 alkalom), jelentős megtakarítással jár. 2 alkalom: 33 900 Ft, 4 alkalom: 66 000 Ft, 6 alkalom: 95 400 Ft.</p>
+
+  <div class="highlight"><strong>Ingyenes konzultáció:</strong> Nem kell előre eldöntened melyik kezelést szeretnéd. Foglalj ingyenes testformáló konzultációt — együtt megbeszéljük mi illik a te céljaidhoz és a te testedhez.</div>
+
+  <h2>Mire figyelj kezelés előtt és után?</h2>
+  <h3>Előtte</h3>
+  <p>Maradj hidratált — igyon sok vizet a kezelés napján. Az ultrahangos és lézeres zsírbontásnál a felszabaduló zsírsejteket a nyirokrendszernek kell elszállítania, ehhez szükséges a megfelelő folyadékbevitel. Kerüld a bő étkezést közvetlenül a kezelés előtt.</p>
+  <h3>Utána</h3>
+  <p>Az eredmény általában 2-3 héten belül éri el a csúcsát, ahogy a test feldolgozza a bontott zsírsejteket. Mozgás és megfelelő vízfogyasztás felgyorsítja ezt a folyamatot. RF kezelés után a kollagén serkentés hatása 3-6 hétig folyamatosan erősödik.</p>
+
+  <div class="cta-inline" style="background:var(--rose)">
+    <div class="cta-inline-text" style="color:var(--cream)">Ingyenes konzultáció — találjuk meg a te utadat</div>
+    <a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=247766" class="cta-btn" style="background:var(--cream);color:var(--plum)">Ingyenes konzultáció →</a>
+  </div>
+
+  <p style="margin-top:48px;font-size:14px;color:rgba(74,43,78,.45)">Be U Beauty Budapest · Károly krt. 21. 1/3 · +36 70 389 1311 · <a href="https://beubeauty.salonic.hu" style="color:var(--rose)">Online foglalás</a></p>
+</div>
+
+<footer>
+  <a href="index.html" class="f-logo">Be <b>U</b> Beauty</a>
+  <ul class="f-links">
+    <li><a href="index.html">Főoldal</a></li>
+    <li><a href="arak.html">Árak</a></li>
+    <li><a href="faq.html">GYIK</a></li>
+    <li><a href="https://beubeauty.salonic.hu">Foglalás</a></li>
+  </ul>
+  <div style="font-size:12px;font-weight:300;color:rgba(251,247,244,.4)">Budapest, Károly krt. 21.</div>
+</footer>
+<script>
+const cur=document.getElementById('cur'),cr=document.getElementById('cur-r');
+let mx=-100,my=-100,rx=-100,ry=-100;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(a);})();
+</script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Árak – Be U Beauty Budapest</title>
+<meta name="description" content="Be U Beauty Budapest árak: lézeres szőrtelenítés, alakformálás, HydraGlow, Signature arckezelések. Valós árak, akciók, 2+1 ajánlatok.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#2D1B2E;--plum-mid:#4A2B4E;--rose:#D4737A;--rose-light:#F2C4C8;--blush:#F9EEF0;--gold:#C9A96E;--gold-light:#EDD9A3;--cream:#FBF7F4;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--plum);cursor:none;overflow-x:hidden;}
+#cur{width:10px;height:10px;background:var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
+#cur-r{width:36px;height:36px;border:1.5px solid var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:rgba(251,247,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,115,122,.1);}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--plum);text-decoration:none;}
+.logo b{color:var(--rose);font-weight:400;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--plum-mid);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--rose);}
+.nav-cta{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:12px 28px;background:var(--plum);color:var(--cream);text-decoration:none;position:relative;overflow:hidden;}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.nav-cta:hover::before{transform:scaleX(1);}
+.nav-cta span{position:relative;z-index:1;}
+
+.page-hero{background:var(--plum);padding:100px 80px 80px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(212,115,122,.18) 0%,transparent 65%),radial-gradient(ellipse at 80% 20%,rgba(201,169,110,.1) 0%,transparent 55%);pointer-events:none;}
+.hero-bg-txt{position:absolute;right:-20px;bottom:-40px;font-family:'Playfair Display',serif;font-size:200px;font-weight:700;font-style:italic;color:rgba(255,255,255,.025);line-height:1;user-select:none;pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:680px;}
+.eyebrow{font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);opacity:.6;display:block;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(44px,5vw,68px);font-weight:400;font-style:italic;color:var(--cream);line-height:1.08;margin-bottom:20px;}
+.page-title em{color:var(--rose-light);}
+.page-desc{font-size:17px;font-weight:300;color:rgba(251,247,244,.52);line-height:1.85;max-width:520px;}
+
+.happy-bar{background:var(--rose);padding:14px 80px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.happy-text{font-size:14px;font-weight:500;color:var(--cream);}
+.happy-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,.8);}
+.happy-link{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:2px;white-space:nowrap;}
+
+.wrap{max-width:1100px;margin:0 auto;padding:80px 40px;}
+.sec{margin-bottom:80px;}
+.sec-head{margin-bottom:40px;}
+.sec-eyebrow{font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.sec-eyebrow::before{content:'';width:28px;height:1px;background:var(--rose);display:block;}
+.sec-eyebrow.gold-ey{color:var(--gold);}
+.sec-eyebrow.gold-ey::before{background:var(--gold);}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,44px);font-weight:400;font-style:italic;color:var(--plum);margin-bottom:10px;}
+.sec-desc{font-size:15px;font-weight:300;color:var(--plum-mid);line-height:1.75;max-width:600px;}
+
+.ptable{width:100%;border-collapse:collapse;margin-bottom:16px;}
+.ptable thead tr{background:var(--plum);}
+.ptable thead th{padding:14px 20px;text-align:left;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(251,247,244,.65);}
+.ptable thead th:last-child{text-align:right;}
+.ptable tbody tr{border-bottom:1px solid rgba(45,27,46,.07);transition:background .15s;}
+.ptable tbody tr:hover{background:rgba(212,115,122,.04);}
+.ptable tbody tr.feat{background:#FFFDF7;}
+.ptable tbody tr.akc{background:#FEF5F6;}
+.ptable td{padding:16px 20px;font-size:15px;font-weight:300;color:var(--plum-mid);vertical-align:top;}
+.ptable td:first-child{font-weight:400;color:var(--plum);}
+.ptable td:last-child{text-align:right;font-weight:500;color:var(--plum);font-size:16px;white-space:nowrap;}
+.td-sub{font-size:12px;color:var(--plum-mid);margin-top:3px;font-weight:300;}
+.td-dur{font-size:13px;color:var(--plum-mid);}
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-left:8px;vertical-align:middle;}
+.b-akc{background:rgba(212,115,122,.15);color:#8B2A35;}
+.b-new{background:rgba(201,169,110,.2);color:#6B4A00;}
+.b-sig{background:var(--plum);color:var(--gold-light);}
+.bk{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--rose);text-decoration:none;border-bottom:1px solid rgba(212,115,122,.3);padding-bottom:1px;margin-top:6px;transition:border-color .2s;}
+.bk:hover{border-color:var(--rose);}
+
+.proba-box{background:var(--blush);border:1px solid var(--rose-light);padding:24px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
+.proba-box h3{font-size:17px;font-weight:500;color:var(--plum);margin-bottom:5px;}
+.proba-box p{font-size:14px;font-weight:300;color:var(--plum-mid);line-height:1.65;}
+.proba-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;background:var(--plum);color:var(--cream);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;flex-shrink:0;margin-left:auto;transition:background .2s;}
+.proba-btn:hover{background:var(--rose);}
+
+.akcio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px;}
+.akcio-card{background:rgba(212,115,122,.06);border:1px solid rgba(212,115,122,.2);padding:24px 28px;}
+.akcio-card h3{font-size:16px;font-weight:500;color:var(--plum);margin-bottom:7px;}
+.akcio-card p{font-size:13px;font-weight:300;color:var(--plum-mid);line-height:1.65;margin-bottom:10px;}
+.akcio-price{font-size:18px;font-weight:500;color:var(--rose);margin-bottom:10px;}
+
+.tabu-box{background:var(--plum);padding:28px 36px;margin:20px 0;display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;}
+.tabu-box h3{font-size:17px;font-weight:400;color:var(--rose-light);margin-bottom:8px;}
+.tabu-box p{font-size:14px;font-weight:300;color:rgba(251,247,244,.55);line-height:1.8;}
+.tabu-box a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,169,110,.3);}
+
+.sec-div{border:none;border-top:1px solid rgba(45,27,46,.08);margin:0 0 72px;}
+
+.cta-section{background:var(--blush);padding:80px;text-align:center;}
+.cta-title{font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,52px);font-weight:400;font-style:italic;color:var(--plum);margin-bottom:14px;}
+.cta-title em{color:var(--rose);}
+.cta-sub{font-size:16px;font-weight:300;color:var(--plum-mid);margin-bottom:40px;line-height:1.8;max-width:440px;margin-left:auto;margin-right:auto;}
+.btn-main{display:inline-flex;align-items:center;gap:10px;padding:18px 44px;background:var(--plum);color:var(--cream);font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;position:relative;overflow:hidden;}
+.btn-main::before{content:'';position:absolute;inset:0;background:var(--rose);transform:translateX(-101%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+.btn-main:hover::before{transform:translateX(0);}
+.btn-main > *{position:relative;z-index:1;}
+
+footer{background:var(--plum);padding:48px 80px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+.f-logo{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--cream);}
+.f-logo b{color:var(--rose);font-weight:400;}
+.f-links{display:flex;gap:24px;list-style:none;}
+.f-links a{font-size:12px;font-weight:300;color:rgba(251,247,244,.45);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--rose-light);}
+.f-contact{font-size:12px;color:rgba(251,247,244,.4);text-align:right;line-height:1.8;}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1);}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s}
+
+@media(max-width:860px){
+  nav{padding:16px 24px;}.nav-links{display:none;}
+  .page-hero{padding:80px 24px 60px;}
+  .happy-bar{padding:12px 20px;}
+  .wrap{padding:48px 20px;}
+  .cta-section{padding:60px 24px;}
+  footer{padding:40px 24px;flex-direction:column;align-items:flex-start;}
+  .f-contact{text-align:left;}
+  .ptable{font-size:13px;}
+  .ptable td,.ptable th{padding:11px 10px;}
+  .ptable td:last-child{font-size:14px;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+
+<nav>
+  <a href="index.html" class="logo">Be <b>U</b> Beauty</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Főoldal</a></li>
+    <li><a href="faq.html">GYIK</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+  <a href="https://beubeauty.salonic.hu" class="nav-cta"><span>Időpontfoglalás</span></a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-glow"></div>
+  <div class="hero-bg-txt">Árak</div>
+  <div class="hero-inner">
+    <div class="eyebrow">Átlátható árazás</div>
+    <h1 class="page-title">Kezelések<br><em>&amp; árak</em></h1>
+    <p class="page-desc">Nálunk nincs rejtett díj és meglepetés. Kipróbálhatod a lézert ingyen mielőtt belevágsz — ingyenes próbalövés elérhető.</p>
+  </div>
+</div>
+
+<div class="happy-bar">
+  <div>
+    <div class="happy-text">✦ Happy Hour — hétköznap 10:00–14:00</div>
+    <div class="happy-sub">Kiválasztott kezelésekre kedvezmény — foglaláskor automatikusan látszik a Salonic-on 🤑</div>
+  </div>
+  <a href="https://beubeauty.salonic.hu" class="happy-link">Aktuális akció →</a>
+</div>
+
+<div class="wrap">
+
+  <!-- LÉZER -->
+  <div class="sec reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Diódalézer · Tartós megoldás</div>
+      <h2 class="sec-title">Lézeres szőrtelenítés</h2>
+      <p class="sec-desc">Orvosi minőségű diódalézerrel, fájdalommentesen — minden bőrtípusra. Az árak területenként értendők, kezeléseket 4–6 hetente javasolt elvégezni.</p>
+    </div>
+
+    <div class="proba-box">
+      <div>
+        <h3>🎯 Ingyenes próbalövés — mielőtt belevágsz</h3>
+        <p>Próbáld ki a lézert ingyen, 5 perc alatt. Hogy biztosan tudd mit vársz.</p>
+      </div>
+      <a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=385951" class="proba-btn">Ingyenes próbát kérek →</a>
+    </div>
+
+    <div class="akcio-grid reveal">
+      <div class="akcio-card">
+        <h3>★ 2+1 Hónalj akció — limitált!</h3>
+        <p>3 hónalj kezelést kapsz 2 kezelés áráért. Kizárólag hónaljra érvényes.</p>
+        <div class="akcio-price">29 800 Ft / 3 alkalom</div>
+        <a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=385963" class="bk">Foglalj →</a>
+      </div>
+      <div class="akcio-card">
+        <h3>♡ 2+1 terület ajándék</h3>
+        <p>Válassz 2 területet — a harmadikat (a legkisebb értékűt) ajándékba kapod. Pl. láb + bikini → ajándék hónalj.</p>
+        <div class="akcio-price">A legkisebb terület ingyenes</div>
+        <a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=385959" class="bk">Foglalj →</a>
+      </div>
+    </div>
+
+    <table class="ptable reveal d1">
+      <thead>
+        <tr>
+          <th>Terület</th>
+          <th>Megjegyzés</th>
+          <th>Időtartam</th>
+          <th>Ár / alkalom</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>S terület<div class="td-sub">Ajak vagy áll</div><a href="https://beubeauty.salonic.hu" class="bk">Foglalj →</a></td>
+          <td class="td-dur">Kis területek</td>
+          <td class="td-dur">~15 perc</td>
+          <td>9 000 Ft</td>
+        </tr>
+        <tr>
+          <td>M terület<div class="td-sub">Hónalj / orca / nyak / bikini vonal</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=169173" class="bk">Foglalj →</a></td>
+          <td class="td-dur">Terület szerint</td>
+          <td class="td-dur">~15 perc</td>
+          <td>14 900 Ft-tól</td>
+        </tr>
+        <tr>
+          <td>Bikini<div class="td-sub">Bikini vonal kezelése</div><a href="https://beubeauty.salonic.hu" class="bk">Foglalj →</a></td>
+          <td class="td-dur">Diszkrétan, ítéletmentesen</td>
+          <td class="td-dur">~15–20 perc</td>
+          <td>14 900 Ft</td>
+        </tr>
+        <tr>
+          <td>Teljes intim<div class="td-sub">Konzultáció minden esetben előtte</div><a href="https://beubeauty.salonic.hu" class="bk">Foglalj →</a></td>
+          <td class="td-dur">PCOS esetén is</td>
+          <td class="td-dur">~30 perc</td>
+          <td>18 000 Ft</td>
+        </tr>
+        <tr>
+          <td>L Láb<div class="td-sub">Lábszár vagy comb — területenként</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=169173" class="bk">Foglalj →</a></td>
+          <td class="td-dur">Egy terület</td>
+          <td class="td-dur">~30 perc</td>
+          <td>29 000 Ft</td>
+        </tr>
+        <tr class="feat">
+          <td>Teljes láb<div class="td-sub">Lábszár + comb együtt</div><a href="https://beubeauty.salonic.hu" class="bk">Foglalj →</a></td>
+          <td class="td-dur">Legjobb ár / terület</td>
+          <td class="td-dur">~50 perc</td>
+          <td>50 000 Ft</td>
+        </tr>
+        <tr class="akc">
+          <td>2+1 Hónalj akció<span class="badge b-akc">★ Limitált</span><div class="td-sub">3 kezelés 2 áráért — csak hónaljra</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=385963" class="bk">Foglalj →</a></td>
+          <td class="td-dur">Csak hónalj</td>
+          <td class="td-dur">3 × 15 perc</td>
+          <td>29 800 Ft</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tabu-box reveal">
+      <span style="font-size:26px;flex-shrink:0">🤫</span>
+      <div>
+        <h3>PCOS, hormonális szőrzet, intim területek — nálunk nincs tabu</h3>
+        <p>Nem kell miatta szégyellned — a genetika és a hormonok okozzák, nem te. Diszkrétan és ítéletmentesen lehet mindenről beszélni. Ha nem mersz személyesen kérdezni, <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank">kérdezd Mirát</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- ALAKFORMÁLÁS -->
+  <div class="sec reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Modern gépi kezelések</div>
+      <h2 class="sec-title">Alakformálás</h2>
+      <p class="sec-desc">Ingyenes konzultáció minden kezelés előtt — megbeszéljük melyik technika illik a te céljaidhoz.</p>
+    </div>
+    <table class="ptable">
+      <thead><tr><th>Kezelés</th><th>Mire való</th><th>Időtartam</th><th>Ár</th></tr></thead>
+      <tbody>
+        <tr><td>Ingyenes konzultáció<div class="td-sub">Mielőtt bármit vállalsz</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=247766" class="bk">Foglalj →</a></td><td class="td-dur">Célok, állapotfelmérés</td><td class="td-dur">15 perc</td><td>Ingyenes</td></tr>
+        <tr><td>Body START — konzultáció + próbakezelés<div class="td-sub">Személyre szabás + gépek kipróbálása</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=441793" class="bk">Foglalj →</a></td><td class="td-dur">Első lépés</td><td class="td-dur">45 perc</td><td>7 500 Ft</td></tr>
+        <tr><td>HIEMT — izomépítés & tónus<div class="td-sub">30 perc = 20 000 izom-összehúzódás</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=441863" class="bk">Foglalj →</a></td><td class="td-dur">Izomépítés + zsírégetés</td><td class="td-dur">30 perc</td><td>8 900 Ft</td></tr>
+        <tr><td>Lipolézer — zsírbontás<div class="td-sub">Kar, has, csípő, derék</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=441862" class="bk">Foglalj →</a></td><td class="td-dur">Makacs zsírszövetek</td><td class="td-dur">30 perc</td><td>8 500 Ft-tól</td></tr>
+        <tr><td>Ultrahangos zsírbontás (kavitáció)<div class="td-sub">Fenék, comb, kar, derék</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=441862" class="bk">Foglalj →</a></td><td class="td-dur">Zsírbontás + feszesítés</td><td class="td-dur">30 perc</td><td>9 000 Ft</td></tr>
+        <tr><td>Rádiófrekvenciás bőrfeszesítés<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=441864" class="bk">Foglalj →</a></td><td class="td-dur">Bőrfeszesítés, narancsbőr</td><td class="td-dur">30 perc</td><td>8 000 Ft-tól</td></tr>
+        <tr class="feat"><td>Hybrid Protokoll — komplex 60 perc<span class="badge b-new">Új</span><div class="td-sub">Zsírégetés + izmosítás + feszesítés egyszerre</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=247139" class="bk">Foglalj →</a></td><td class="td-dur">Drasztikus cm csökkentés</td><td class="td-dur">60 perc</td><td>18 900 Ft</td></tr>
+        <tr class="akc"><td>Expressz 8×30 perces bérlet<span class="badge b-akc">Legjobb ár</span><div class="td-sub">8 alkalom, akár ebédszünetben</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=441881" class="bk">Foglalj →</a></td><td class="td-dur">Privát, diszkrét</td><td class="td-dur">8 × 30 perc</td><td>69 000 Ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NARANCSBORSTOP -->
+  <div class="sec reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Cellulit ellen</div>
+      <h2 class="sec-title">NarancsbőrSTOP</h2>
+      <p class="sec-desc">4 technológia kombinációja — már pár alkalom után látványos változás.</p>
+    </div>
+    <table class="ptable">
+      <thead><tr><th>Csomag</th><th>Tartalom</th><th>Időtartam</th><th>Ár</th></tr></thead>
+      <tbody>
+        <tr><td>NarancsbőrSTOP 90'<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=392721" class="bk">Foglalj →</a></td><td class="td-dur">1 alkalom</td><td class="td-dur">90 perc</td><td>18 900 Ft</td></tr>
+        <tr class="feat"><td>2 alkalom<span class="badge b-new">Új</span><div class="td-sub">1×60 perc + 1×90 perc</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=392723" class="bk">Foglalj →</a></td><td class="td-dur">2 alkalom</td><td class="td-dur">150 perc</td><td>33 900 Ft</td></tr>
+        <tr><td>4 alkalom bérlet<a href="https://beubeauty.salonic.hu" class="bk">Foglalj →</a></td><td class="td-dur">4 alkalom</td><td class="td-dur">—</td><td>66 000 Ft</td></tr>
+        <tr><td>6 alkalom bérlet<a href="https://beubeauty.salonic.hu" class="bk">Foglalj →</a></td><td class="td-dur">6 alkalom</td><td class="td-dur">—</td><td>95 400 Ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- SIGNATURE ARCKEZELÉSEK -->
+  <div class="sec reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow gold-ey">Signature · 5D élmény</div>
+      <h2 class="sec-title">Signature arckezelések</h2>
+      <p class="sec-desc">Neurokozmetikumokkal, LED fényterápiával, 5D érzékszervélménnyel. A mi saját, kidolgozott módszertanunk.</p>
+    </div>
+    <table class="ptable">
+      <thead><tr><th>Kezelés</th><th>Mire való</th><th>Időtartam</th><th>Ár</th></tr></thead>
+      <tbody>
+        <tr><td>Kozmetikai konzultáció<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=196669" class="bk">Foglalj →</a></td><td class="td-dur">Első lépés</td><td class="td-dur">10 perc</td><td>Ingyenes</td></tr>
+        <tr><td>HydraGlow — ragyogás egy alkalom után<div class="td-sub">Kollagénes hidratálás koreai maszkkal</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412598" class="bk">Foglalj →</a></td><td class="td-dur">Száraz, fakó bőr</td><td class="td-dur">45 perc</td><td>19 800 Ft</td></tr>
+        <tr><td>HydraGlow — C-vitaminos hidratálás + masszázs<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412590" class="bk">Foglalj →</a></td><td class="td-dur">Fakó, egyenetlen tónus</td><td class="td-dur">60 perc</td><td>24 800 Ft</td></tr>
+        <tr><td>HydraGlow — oxigénfúziós + LED fényterápia<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412596" class="bk">Foglalj →</a></td><td class="td-dur">Extra feltöltés</td><td class="td-dur">75 perc</td><td>27 800 Ft</td></tr>
+        <tr><td>Hydra Clear & Glow — érzékeny bőr<span class="badge b-new">Új</span><div class="td-sub">Cannabis + GABA szérumokkal</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412601" class="bk">Foglalj →</a></td><td class="td-dur">Érzékeny, kipirosodó bőr</td><td class="td-dur">75 perc</td><td>28 800 Ft</td></tr>
+        <tr><td>Clear DetoxGlow — gépi mélytisztítás<span class="badge b-new">Nyomkodás nélkül</span><div class="td-sub">Calming Alga maszk + LED</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412594" class="bk">Foglalj →</a></td><td class="td-dur">Zsíros, mitesszeres bőr</td><td class="td-dur">90 perc</td><td>29 800 Ft</td></tr>
+        <tr><td>Pigmentfoltok — C-vitaminos ragyogás<span class="badge b-new">Új</span><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412593" class="bk">Foglalj →</a></td><td class="td-dur">Pigmentfoltok halványítása</td><td class="td-dur">75 perc</td><td>31 800 Ft</td></tr>
+        <tr><td>HydraGlow & Lift — lifting + C-vitamin<span class="badge b-new">Új</span><div class="td-sub">GABA + C-vitamin</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412595" class="bk">Foglalj →</a></td><td class="td-dur">Feszesség visszanyerése</td><td class="td-dur">75 perc</td><td>34 800 Ft</td></tr>
+        <tr class="feat"><td>Age Control Signature 5D Experience<span class="badge b-sig">✦ Signature</span><div class="td-sub">GABA & NANA neurokozmetikumokkal</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412599" class="bk">Foglalj →</a></td><td class="td-dur">Prémium anti-aging</td><td class="td-dur">120 perc</td><td>39 800 Ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- ESSENTIALS -->
+  <div class="sec reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Gyors és célzott</div>
+      <h2 class="sec-title">Essentials arckezelések</h2>
+    </div>
+    <table class="ptable">
+      <thead><tr><th>Kezelés</th><th>Mire való</th><th>Időtartam</th><th>Ár</th></tr></thead>
+      <tbody>
+        <tr><td>Silent arcmasszázs — Glow and Go 30'<div class="td-sub">Csendben, felfrisülve</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=195493" class="bk">Foglalj →</a></td><td class="td-dur">Stressz-oldás</td><td class="td-dur">30 perc</td><td>9 900 Ft</td></tr>
+        <tr><td>Hydro nyomkodásmentes arctisztítás<div class="td-sub">HydraGlow géppel, Arkana neurokozmetikumokkal</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=427300" class="bk">Foglalj →</a></td><td class="td-dur">Kombinált, normál bőr</td><td class="td-dur">35 perc</td><td>16 900 Ft</td></tr>
+        <tr><td>RF arcfiatalítás<div class="td-sub">+nyak és dekoltázs: +6 000 Ft</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=206352" class="bk">Foglalj →</a></td><td class="td-dur">Feszesítés, finom ráncok</td><td class="td-dur">30 perc</td><td>16 900 Ft</td></tr>
+        <tr><td>Express hidratáló arckezelés<span class="badge b-new">Új</span><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=427302" class="bk">Foglalj →</a></td><td class="td-dur">Fáradt, száraz bőr</td><td class="td-dur">40 perc</td><td>17 500 Ft</td></tr>
+        <tr><td>Silent arcmasszázs + alga pakolás 45'<div class="td-sub">Alga Glow and Go Ritual</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=395685" class="bk">Foglalj →</a></td><td class="td-dur">Luxus relaxáció</td><td class="td-dur">45 perc</td><td>14 900 Ft</td></tr>
+        <tr><td>5 lépcsős RF prémium arckezelés<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=202885" class="bk">Foglalj →</a></td><td class="td-dur">Anti-aging, feszesítés</td><td class="td-dur">60 perc</td><td>24 900 Ft-tól</td></tr>
+        <tr><td>LED fényterápia<div class="td-sub">Piros / kék / zöld / sárga</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=406904" class="bk">Foglalj →</a></td><td class="td-dur">Akné, anti-aging, ragyogás</td><td class="td-dur">30 perc</td><td>9 000 Ft-tól</td></tr>
+        <tr><td>Pure Cannabis Therapy<div class="td-sub">Gépi tisztítás + ultrahangos szérum + alga maszk</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412592" class="bk">Foglalj →</a></td><td class="td-dur">Gyulladt, érzékeny bőr</td><td class="td-dur">60 perc</td><td>27 800 Ft</td></tr>
+        <tr><td>Pigmentfoltok — savas hámlasztás<div class="td-sub">Bőrtónus egységesítése</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=412597" class="bk">Foglalj →</a></td><td class="td-dur">Pigmentfoltok, elszíneződés</td><td class="td-dur">60 perc</td><td>27 800 Ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- DETOX + ACCESS BARS -->
+  <div class="sec reveal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Méregtelenítés & Energetika</div>
+      <h2 class="sec-title">Metal Detox &amp; Access Bars</h2>
+    </div>
+    <table class="ptable">
+      <thead><tr><th>Kezelés</th><th>Mire való</th><th>Időtartam</th><th>Ár</th></tr></thead>
+      <tbody>
+        <tr><td>Városi mini Metal Detox — expressz<span class="badge b-new">Új</span><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=447622" class="bk">Foglalj →</a></td><td class="td-dur">Szmog, kék fény, fémpor</td><td class="td-dur">35 perc</td><td>16 500 Ft</td></tr>
+        <tr><td>Városi Metal Detox — test méregtelenítés<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=186732" class="bk">Foglalj →</a></td><td class="td-dur">Puffadás, cellulit</td><td class="td-dur">30 perc</td><td>8 800 Ft</td></tr>
+        <tr><td>Sejtszintű Metal Detox — arckezelés<a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=195197" class="bk">Foglalj →</a></td><td class="td-dur">Bőrméregtelenítés</td><td class="td-dur">60 perc</td><td>26 000 Ft</td></tr>
+        <tr><td>Access Bars<span class="badge b-new">Új</span><div class="td-sub">32 pont a fejen, energetikai kezelés</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=399726" class="bk">Foglalj →</a></td><td class="td-dur">Mentális blokkok</td><td class="td-dur">60 perc</td><td>14 000 Ft</td></tr>
+        <tr class="feat"><td>Access Bars Beauty Ritual<span class="badge b-new">Új</span><div class="td-sub">Arcmasszázs + 50 perces Access Bars</div><a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=399931" class="bk">Foglalj →</a></td><td class="td-dur">Test + elme harmóniája</td><td class="td-dur">90 perc</td><td>22 000 Ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="cta-section reveal">
+  <div style="display:flex;align-items:center;justify-content:center;gap:14px;color:var(--rose);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;margin-bottom:24px;">
+    <span style="flex:1;max-width:60px;height:1px;background:var(--rose);opacity:.4;display:block"></span>
+    Ingyenes konzultáció
+    <span style="flex:1;max-width:60px;height:1px;background:var(--rose);opacity:.4;display:block"></span>
+  </div>
+  <h2 class="cta-title">Nem tudod melyik<br><em>kezelés való neked?</em></h2>
+  <p class="cta-sub">Foglalj ingyenes konzultációt — együtt megtaláljuk a legjobb utat.</p>
+  <a href="https://beubeauty.salonic.hu/selectEmployee/?placeId=7333&serviceId=247766" class="btn-main">
+    <span>Ingyenes konzultáció foglalása</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<footer>
+  <a href="index.html" class="f-logo">Be <b>U</b> Beauty</a>
+  <ul class="f-links">
+    <li><a href="index.html">Főoldal</a></li>
+    <li><a href="faq.html">GYIK</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="https://beubeauty.salonic.hu">Foglalás</a></li>
+  </ul>
+  <div class="f-contact">+36 70 389 1311<br>Budapest, Károly krt. 21. 1/3</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),cr=document.getElementById('cur-r');
+let mx=-100,my=-100,rx=-100,ry=-100;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(a);})();
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

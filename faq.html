@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GYIK – Lézeres szőrtelenítés, alakformálás, arckezelés – Be U Beauty Budapest</title>
+<meta name="description" content="Minden kérdésre válasz: fáj-e a lézeres szőrtelenítés, hány alkalom kell, működik-e az alakformálás, mi a HydraGlow. Be U Beauty Budapest, Károly krt. 21.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#2D1B2E;--plum-mid:#4A2B4E;--rose:#D4737A;--rose-light:#F2C4C8;--blush:#F9EEF0;--gold:#C9A96E;--gold-light:#EDD9A3;--cream:#FBF7F4;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--plum);cursor:none;overflow-x:hidden;}
+#cur{width:10px;height:10px;background:var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
+#cur-r{width:36px;height:36px;border:1.5px solid var(--rose);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:rgba(251,247,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,115,122,.1);}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;font-style:italic;color:var(--plum);text-decoration:none;}
+.logo b{color:var(--rose);font-weight:400;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--plum-mid);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--rose);}
+.nav-cta{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:12px 28px;background:var(--plum);color:var(--cream);text-decoration:none;position:relative;overflow:hidden;}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.nav-cta:hover::before{transform:scaleX(1);}
+.nav-cta span{position:relative;z-index:1;}
+
+.page-hero{background:var(--plum);padding:100px 80px 80px;position:relative;overflow:hidden;}
+.page-hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 15% 60%,rgba(212,115,122,.18) 0%,transparent 65%);pointer-events:none;}
+.page-hero-bg{position:absolute;right:-20px;bottom:-50px;font-family:'Playfair Display',serif;font-size:200px;font-weight:700;font-style:italic;color:rgba(255,255,255,.025);line-height:1;user-select:none;}
+.eyebrow{font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);opacity:.6;display:block;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(44px,5vw,68px);font-weight:400;font-style:italic;color:var(--cream);line-height:1.08;margin-bottom:20px;position:relative;z-index:1;}
+.page-title em{color:var(--rose-light);}
+.page-desc{font-size:17px;font-weight:300;color:rgba(251,247,244,.52);line-height:1.85;max-width:540px;position:relative;z-index:1;}
+
+.content{max-width:860px;margin:0 auto;padding:80px 40px;}
+
+.faq-cat{margin-bottom:64px;}
+.cat-label{display:flex;align-items:center;gap:16px;margin-bottom:32px;}
+.cat-label-text{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;font-style:italic;color:var(--plum);}
+.cat-label-line{flex:1;height:1px;background:rgba(212,115,122,.2);}
+
+.faq-item{border-bottom:1px solid rgba(45,27,46,.08);overflow:hidden;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:22px 0;cursor:none;gap:20px;transition:color .2s;}
+.faq-q:hover .faq-q-text{color:var(--rose);}
+.faq-q-text{font-size:17px;font-weight:400;color:var(--plum);line-height:1.45;flex:1;transition:color .2s;}
+.faq-icon{width:32px;height:32px;border-radius:50%;border:1px solid rgba(212,115,122,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--rose);font-size:18px;font-weight:300;transition:all .25s;}
+.faq-q.open .faq-icon{background:var(--rose);color:var(--cream);transform:rotate(45deg);border-color:var(--rose);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .3s;}
+.faq-a.open{max-height:600px;padding-bottom:24px;}
+.faq-a-inner{font-size:16px;font-weight:300;color:var(--plum-mid);line-height:1.85;}
+.faq-a-inner strong{font-weight:500;color:var(--plum);}
+.faq-a-inner .highlight{background:var(--blush);border-left:3px solid var(--rose);padding:14px 20px;margin:16px 0;font-size:15px;}
+.faq-a-inner a{color:var(--rose);text-decoration:none;border-bottom:1px solid rgba(212,115,122,.35);}
+
+.mira-box{background:var(--plum);padding:48px;margin:64px 0;display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.mira-box-content{flex:1;}
+.mira-box-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;font-style:italic;color:var(--cream);margin-bottom:10px;}
+.mira-box-text{font-size:15px;font-weight:300;color:rgba(251,247,244,.55);line-height:1.8;}
+.mira-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:var(--plum);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;flex-shrink:0;transition:background .2s;}
+.mira-btn:hover{background:var(--gold-light);}
+
+.schema-note{background:#EAF4E8;border:1px solid #97C459;border-radius:6px;padding:14px 20px;font-size:13px;color:#27500A;line-height:1.6;margin-bottom:48px;}
+
+footer{background:var(--plum);padding:48px 80px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+.f-logo{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:var(--cream);}
+.f-logo b{color:var(--rose);font-weight:400;}
+.f-links{display:flex;gap:24px;list-style:none;}
+.f-links a{font-size:12px;font-weight:300;color:rgba(251,247,244,.45);text-decoration:none;}
+.f-links a:hover{color:var(--rose-light);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+@media(max-width:800px){nav{padding:16px 24px;}.nav-links{display:none;}.page-hero{padding:80px 24px 60px;}.content{padding:48px 20px;}.mira-box{padding:32px 24px;flex-direction:column;}footer{padding:40px 24px;flex-direction:column;}}
+</style>
+
+<!-- SCHEMA MARKUP — AI indexeléshez -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Fáj a lézeres szőrtelenítés?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A modern diódalézeres kezelések a legtöbb ember számára teljesen fájdalommentesek. Enyhe bőrpírt okozhat, hasonlóan egy gumi pattintásához. A Be U Beauty orvosi diódalézert használ, amely egyszerre hatékony és kíméletes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hány alkalom kell a lézeres szőrtelenítéshez?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Általában 6–10 kezelés szükséges a tartós eredményhez. Az első 1–3 alkalom után már látványos csökkenés tapasztalható. A teljes kezeléssorozat után az esetek 90%-ában tartós szőrmentesség érhető el."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mennyibe kerül a lézeres szőrtelenítés Budapesten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Be U Beauty-ban a lézeres szőrtelenítés ára 4 900 Ft-tól indul (ajak, áll terület). A teljes láb kezelése 22 900 Ft / alkalom. Jelenleg 2+1 csomag érhető el: a harmadik kezelés ajándék."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Működik az alakformálás lézeres géppel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Igen, a Be U Beauty-ban használt HIEMT, lipolézer és rádiófrekvenciás kezelések centikkel mérhető eredményt adnak. A HIEMT 30 perc alatt 20 000 izom-összehúzódást végez, miközben zsírt éget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mi az a HydraGlow kezelés?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A HydraGlow a Be U Beauty Signature arckezelése: nyomásmentes gépi mélytisztítás, hidratálás és ragyogásfokozás — tűk és kézi nyomkodás nélkül. Az eredmény már az első alkalom után látható."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Be U Beauty Szalon",
+  "description": "Fájdalommentes lézeres szőrtelenítés, alakformálás és Signature arckezelések Budapesten. Orvosi diódalézer, HIEMT, HydraGlow, Signature 5D arckezelés.",
+  "url": "https://www.beubeauty.hu",
+  "telephone": "+36703891311",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Károly krt. 21. 1/3",
+    "addressLocality": "Budapest",
+    "postalCode": "1075",
+    "addressCountry": "HU"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 47.499,
+    "longitude": 19.054
+  },
+  "openingHours": "Mo-Sa 09:00-19:00",
+  "priceRange": "4900-39800 HUF"
+}
+</script>
+</head>
+<body>
+<div id="cur"></div><div id="cur-r"></div>
+
+<nav>
+  <a href="index.html" class="logo">Be <b>U</b> Beauty</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Főoldal</a></li>
+    <li><a href="arak.html">Árak</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+  <a href="https://beubeauty.salonic.hu" class="nav-cta"><span>Időpontfoglalás</span></a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-bg">GYIK</div>
+  <div class="eyebrow">Minden kérdésre válasz</div>
+  <h1 class="page-title">Amit mindenki<br><em>kérdez tőlünk</em></h1>
+  <p class="page-desc">Lézeres szőrtelenítés, alakformálás, Signature arckezelések — összeszedtük a leggyakoribb kérdéseket és őszintén válaszolunk rájuk. Ha mégsem találod a választ, kérdezd Mirát.</p>
+</div>
+
+<div class="content">
+
+  <div class="schema-note">
+    💡 <strong>SEO & AI tipp:</strong> Ez az oldal strukturált FAQ adatokkal van ellátva (Schema.org) — ezért a ChatGPT, Google AI és Perplexity is könnyen meríti ebből az információt.
+  </div>
+
+  <!-- LÉZER -->
+  <div class="faq-cat reveal">
+    <div class="cat-label">
+      <div class="cat-label-text">Lézeres szőrtelenítés</div>
+      <div class="cat-label-line"></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Fáj a lézeres szőrtelenítés?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          A modern diódalézeres kezelések a legtöbb ember számára <strong>teljesen fájdalommentesek</strong> — vagy csak enyhe bőrpírt okoznak, hasonlóan egy gumi pattintásához. Érzékenyebb területeken (bikini vonal, hónalj) előfordulhat enyhe kellemetlen érzés, de ez perceken belül elmúlik.<br><br>
+          A régebbi lézertípusokhoz képest a ma használt diódalézer sokkal kényelmesebb élményt nyújt. Nálunk orvosi minőségű diódalézert használunk, amely egyszerre hatékony és kíméletes.
+          <div class="highlight">Vendégeink 95%-a azt mondja az első kezelés után: „Ennyi? Ennyi volt?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Hány alkalom kell a tartós eredményhez?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Általában <strong>6–10 kezelés</strong> szükséges — a terülttől és a szőrzeted típusától függően. Az okot a szőrzet növekedési ciklusa adja: a lézer csak az aktívan növekvő szőrszálakat tudja kezelni egyszerre, ezért kell több alkalom.<br><br>
+          Az első <strong>1–3 kezelés után már látványos csökkenés</strong> tapasztalható. A teljes sorozat után az esetek 90%-ában tartós szőrmentesség érhető el.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Mennyibe kerül lézeres szőrtelenítés Budapesten 2025-ben?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          A Be U Beauty-ban az árak <strong>4 900 Ft-tól</strong> indulnak (ajak, áll területre), a nagyobb területek (teljes láb: 22 900 Ft/alkalom) esetén magasabb díjjal. Jelenleg <strong>2+1 csomagot</strong> kínálunk: a harmadik kezelés ajándék.<br><br>
+          Érdemes csomagban gondolkodni — így az összköltség jóval kedvezőbb, mint a gyantára vagy borotvára fordított éves összeg.
+          <div class="highlight">Hosszú távon a lézeres szőrtelenítés olcsóbb mint a gyanta. Számoltuk.</div>
+          <a href="arak.html">Teljes árlista →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">PCOS-om van, sok szőrzetem nő az arcomon és intim területen. Segítetek?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <strong>Igen, és nem kell miatta szégyellned.</strong> A PCOS okozta hormonális szőrzet az egyik leggyakoribb ok, amiért nők lézeres szőrtelenítésre jönnek hozzánk. Ez nem a te hibád — a genetika és a hormonális háttér okozza.<br><br>
+          Nálunk <strong>nincs tabu</strong>: intim területek, arc, has, hát — mindenről lehet és érdemes is nyíltan beszélni. A konzultáció diszkrét és ítéletmentes. Ha nem mersz személyesen kérdezni, <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank">kérdezd Mirát</a> — a digitális asszisztensünk diszkrétan és ítéletmentesen segít.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Milyen lézert használtok és miért jobb a diódalézer?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Orvosi minőségű <strong>diódalézert</strong> használunk, 808 nm-es hullámhosszon — ez ma a leghatékonyabb és legbiztonságosabb technológia a piacon. A diódalézer:<br><br>
+          • Minden bőrtípusra alkalmas (I–VI. fotótípus)<br>
+          • Minimális hőterhelés a bőrfelszínen<br>
+          • Gyorsabb kezelési idő mint az IPL<br>
+          • Tartósabb eredmény mint az epiláció<br><br>
+          Az IPL-lel szemben a diódalézer célzottabb és hatékonyabb — különösen sötétebb szőrzeten.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Mi a 2+1 akció — hogyan működik pontosan?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          A 2+1 csomag egyszerű: <strong>fizetsz 2 kezelésért, a harmadik alkalom ajándék.</strong> Ugyanarra a területre vonatkozik mindhárom. A foglaláskor jelezd, hogy csomagban gondolkodsz — és a Salonic rendszerben nyilvántartjuk az alkalmakat.<br><br>
+          A csomagot 6 hónapon belül kell felhasználni. Kérdés esetén <a href="https://beubeauty.salonic.hu" target="_blank">foglalj online konzultációt</a> és mindent megbeszélünk.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALAKFORMÁLÁS -->
+  <div class="faq-cat reveal">
+    <div class="cat-label">
+      <div class="cat-label-text">Alakformálás</div>
+      <div class="cat-label-line"></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Tényleg működnek a gépi alakformáló kezelések?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <strong>Igen — de fontos a realisztikus elvárás.</strong> A gépi kezelések (HIEMT, lipolézer, rádiófrekvencia) centikkel mérhető eredményt adnak, amelyet dokumentálunk is. Nem fogyókúra-helyettesítők, hanem célzott testformaló eszközök.<br><br>
+          A HIEMT például 30 perc alatt 20 000 izom-összehúzódást végez — ez mélyebben dolgozza meg az izomszövetet, mint bármilyen edzés. A lipolézer a makacs zsírdepókat célozza. Centiméter csökkenés már 4–6 kezelés után mérhető.
+          <div class="highlight">A Be U Beauty-ban nem egy gépet adunk — hanem eredmény-orientált stratégiát a te céljaidhoz.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Mi a különbség a HIEMT, a lipolézer és az ultrahangos zsírbontás között?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <strong>HIEMT</strong> — elektromágneses stimulálás. Elsősorban izomépítésre és zsírégetésre. Akkor ideális, ha tónusosabb testet szeretnél, nem csak vékonyabbat.<br><br>
+          <strong>Lipolézer</strong> — lézerenergia célzottan bontja a zsírsejteket. Legjobb has, kar, csípő, derék területén, ahol a zsír makacs és edzéssel nem tűnik el.<br><br>
+          <strong>Ultrahangos (kavitáció)</strong> — hanghullámok bontják a zsírt. Hatékony comb, fenék, derék területén. Nyirokmasszázzsal együtt a legjobb.<br><br>
+          Konzultáción megbeszéljük, melyik — vagy melyik kombináció — illik a te céljaidhoz.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Hány centit lehet fogyni alakformáló kezelésekkel?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Vendégeink tapasztalata alapján <strong>4–8 kezelés után általában 2–6 cm csökkenés mérhető</strong> a kezelt területen. Ez természetesen egyéni — függ a kiindulóponttól, a testzsír arányától és az életmódtól is.<br><br>
+          A Hybrid Protokoll (HIEMT + lipolézer + feszesítés egyszerre) adja a leglátványosabb és leggyorsabb eredményt egy területen. Előtte–utána méréseket dokumentálunk, így követhető a fejlődés.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCKEZELÉSEK -->
+  <div class="faq-cat reveal">
+    <div class="cat-label">
+      <div class="cat-label-text">Signature arckezelések</div>
+      <div class="cat-label-line"></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Mi az a HydraGlow kezelés — miben más mint a többi arckezelés?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          A HydraGlow a Be U Beauty Signature módszerű arckezelése: <strong>nyomásmentes gépi mélytisztítás</strong> — tehát nem nyomkodás, nem mancsika, nem pattintás. Gépi szívással távolítjuk el a szennyeződéseket, majd C-vitaminos vagy kollagénes hatóanyagokat dolgozunk be.<br><br>
+          Az eredmény: <strong>azonnal látható ragyogás, feszes és hidratált bőr</strong> — vörösség és leégés nélkül. Tökéletes esemény előtt, mert másnap is ragyog a bőr.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Mi az 5D Signature Experience — mit jelent az 5D?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Az 5D az öt érzékszervre utal — a kezelés nemcsak a bőrödre, hanem az egész élményedre hat:<br><br>
+          🌟 <strong>Látvány</strong> — személyre szabott LED-fényterápia<br>
+          🌿 <strong>Illat</strong> — egyedi aromaterápiás illatvilág<br>
+          🎵 <strong>Hang</strong> — lágy, meditatív dallamok<br>
+          🤲 <strong>Érintés</strong> — prémium neurokozmetikai hatóanyagok<br>
+          🍵 <strong>Íz</strong> — üdvözlő tea és rituálé<br><br>
+          Az <strong>Age Control Signature 5D Experience</strong> 120 perces kezelés GABA & NANA neurokozmetikumokkal — feszesítés, ránccsökkentés, bőrtömörség javítása egy komplexkezelésben.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Mennyi ideig tart egy arckezelés hatása?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Ez a kezelés típusától függ. A HydraGlow hidratáló hatása <strong>1–2 hétig érezhető</strong>, az azonnali ragyogás néhány napig. A rádiófrekvenciás feszesítés kollagénserkentő hatása <strong>3–6 hétig</strong> folyamatosan erősödik, mivel a bőr saját kollagénjét termeli.<br><br>
+          Optimális eredményhez <strong>havonta egy kezelést</strong> ajánlunk — ez a bőr természetes megújulási ciklusával igazodik. A rendszeres kezelés hosszú távon meglassítja a bőröregedést.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Érzékeny bőrre is megfelelők a kezelések?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <strong>Igen</strong> — több kezelésünk kifejezetten érzékeny bőrre lett kifejlesztve. A <em>Hydra Clear & Glow</em> és a <em>Pure Cannabis Therapy</em> kezelések Cannabis- és GABA-tartalmú szérumokkal nyugtatják a bőrt, csökkentik a bőrpírt és az irritációt.<br><br>
+          Minden kezelés előtt rövid állapotfelmérést végzünk — így soha nem kerül olyan anyag vagy technika a bőrödre, ami irritálhatná azt.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÁLTALÁNOS -->
+  <div class="faq-cat reveal">
+    <div class="cat-label">
+      <div class="cat-label-text">Általános kérdések</div>
+      <div class="cat-label-line"></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Hol találjátok a Be U Beauty szalont Budapesten?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          A Be U Beauty a <strong>Budapest, Károly krt. 21. 1/3</strong> szám alatt található — a belváros szívében, könnyen elérhető tömegközlekedéssel. <br><br>
+          Metro: M2 Astoria állomás (3 perc séta) · Villamos: 47-es, 49-es Károly krt. megálló · Busz: 7-es, 8E, 112-es.
+          <div class="highlight">Nyitvatartás: Hétfő–Szombat · Telefonszám: +36 70 389 1311</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Hogyan foglalhatok időpontot online?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          Online foglalás a Salonic rendszeren keresztül: <a href="https://beubeauty.salonic.hu" target="_blank">beubeauty.salonic.hu</a><br><br>
+          Válaszd ki a kezelést, a napot és az időpontot — és készen is vagy. Visszaigazolást kapsz emailben. Ha kérdésed van foglalás előtt, hívj minket vagy kérdezd Mirát!
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="tog(this)">
+        <span class="faq-q-text">Mi az a Happy Hour és mikor aktív?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          A Happy Hour minden <strong>hétköznap 10:00–14:00</strong> között aktív. Ebben az időablakban kiválasztott kezelésekre <strong>10–15% kedvezményt</strong> kínálunk.<br><br>
+          Az aktuális Happy Hour kezelések és az akció mértéke a <a href="https://beubeauty.salonic.hu" target="_blank">Salonic foglalási oldalunkon</a> mindig naprakészen látható — az akciós ár automatikusan megjelenik a foglaláskor.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mira-box reveal">
+    <div class="mira-box-content">
+      <div class="mira-box-title">Nem találtad a választ?<br>Kérdezd Mirát — diszkrétan.</div>
+      <div class="mira-box-text">Mira a Be U Beauty digitális asszisztense. Ítéletmentesen és diszkrétan válaszol minden kérdésre — bármilyen érzékeny témáról is legyen szó. PCOS, intim területek, hormonális szőrzet — semmiről nem kell hallgatni.</div>
+    </div>
+    <a href="https://chatgpt.com/g/g-69477c018f2c8191a86b5b7c53648b8f-mira-a-be-u-beauty-tunderi-asszisztense" target="_blank" class="mira-btn">Kérdezd Mirát →</a>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html" class="f-logo">Be <b>U</b> Beauty</a>
+  <ul class="f-links">
+    <li><a href="index.html">Főoldal</a></li>
+    <li><a href="arak.html">Árak</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="https://beubeauty.salonic.hu">Foglalás</a></li>
+  </ul>
+  <div style="font-size:12px;font-weight:300;color:rgba(251,247,244,.4)">
+    Budapest, Károly krt. 21. · +36 70 389 1311
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),cr=document.getElementById('cur-r');
+let mx=-100,my=-100,rx=-100,ry=-100;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(a);})();
+
+function tog(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(q=>{
+    q.classList.remove('open');
+    q.nextElementSibling.classList.remove('open');
+  });
+  if(!isOpen){
+    el.classList.add('open');
+    el.nextElementSibling.classList.add('open');
+  }
+}
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
